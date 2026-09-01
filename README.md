@@ -23,14 +23,23 @@ gitignored.
 | Field | Value |
 |---|---|
 | Source | Kashif et al. (2026), *Engineering Reports*, Section 3.8 / endnote 1 |
-| Access URL | **TODO — authors to supply the exact link used** |
-| Access date | **TODO — authors to confirm (archive stamped 2026-08-31)** |
-| Access route | **TODO — published link, or other** |
+| Dataset URL | <https://drive.google.com/drive/folders/1L9Dc3xQ7dqlL10CD4JaRfG_H9JzuP-Tw?usp=drive_link> |
+| Source-study results + code | <https://drive.google.com/drive/folders/1kiig7QTYF90vqAvvJR6mz-tO5yOOsSkY?usp=sharing> |
+| Access route | The public link published by the source study |
+| Access date | **2026-08-31** |
 | Folder listing as accessed | `data/raw/manifest.txt` |
-| Per-file checksums | `data/raw/checksums.csv` |
+| Per-file checksums | `data/raw/checksums.csv` (852 rows, SHA-256) |
 
-*(These three fields resolve a TODO in the paper's Data section and are
-recorded verbatim from the authors. They are not inferred.)*
+The access date is evidenced by the download artifact itself: Google
+Drive's bulk export named the archive
+`Dataset-20260831T212010Z-1-001.zip`, encoding **2026-08-31T21:20:10Z**.
+The archive is retained under `Related_Research_Work/` (gitignored, not
+redistributed).
+
+Per the source study's Section 3.8 the data is reachable at a public
+link, while its formal Data Availability Statement describes
+availability on request; we treat the published link above as the
+operative access route, as stated in the paper's Data section.
 
 ### Released contents and the integrity audit
 

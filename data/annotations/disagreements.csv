@@ -1,0 +1,51 @@
+unit_id,annotA_script,annotA_note,annotB_script,annotB_note,final,reason
+8,digit,closed circle; digit 0 vs Latin O,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+13,english,uppercase J vs Urdu laam,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+48,english,lowercase y,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+59,digit,4,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+91,english,uppercase G,digit,,digit,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+117,english,uppercase C,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+124,digit,closed circle; digit 0 vs Latin O vs Urdu he,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+128,english,uppercase S,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+143,english,lowercase e,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+153,digit,digit 4 vs Latin y,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+158,digit,2,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+223,digit,closed circle; digit 0 vs Latin O,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+268,english,uppercase S,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+278,urdu,hey/suad large,digit,,digit,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+281,english,uppercase Y vs Urdu hooked form,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+311,english,uppercase P vs Urdu meem,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+326,digit,9,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+328,digit,angular 7 vs Urdu hooked form,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+358,english,uppercase P vs Urdu meem,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+361,digit,4,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+385,urdu,dal/zal family with dot,digit,,digit,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+404,english,uppercase P vs Urdu meem,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+419,urdu,loop with long tail; waw vs digit 9,digit,,digit,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+426,urdu,fe-like form with circle; Urdu fe vs Latin F,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+429,english,lowercase b vs Urdu toe,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+433,urdu,jeem/hey with heavy top bar,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+444,digit,digit 5 vs Latin S,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+452,digit,closed circle; digit 0 vs Latin o,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+453,urdu,loop with tail; Urdu waw vs digit 9,digit,not clear image,digit,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+458,english,uppercase P,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+466,digit,9,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+467,digit,9,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+468,digit,9,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+469,digit,closed circle; digit 0 vs Latin O,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+484,english,lowercase j vs Urdu zay,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+492,digit,3,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+502,digit,small circle; digit 0 vs Latin o,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+519,urdu,toe/kaaf ligature,digit,,digit,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+521,digit,1 with head serif vs Urdu alif,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+526,digit,cursive 2 vs Urdu hey,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+539,english,lowercase b vs Urdu toe,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+547,english,looped form with bar; Latin e/G vs Urdu he,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+569,english,lowercase b vs Urdu toe,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+579,digit,loosely drawn 8,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+580,digit,4,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+592,digit,closed circle; digit 0 vs Latin O,english,,english,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+603,digit,7,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+613,english,faint lowercase c vs Urdu hey,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+616,english,uppercase L,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).
+637,english,uppercase L vs Urdu hooked form,urdu,,urdu,Adjudication policy fixed by the authors 2026-09-02: annotator B (human) is authoritative on every A/B disagreement; annotator A is Claude Code (D-001).

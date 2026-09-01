@@ -135,7 +135,8 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
 - **Date:** 2026-09-01
 - **Guide clause:** §10 / endpoints — co-primary endpoints are defined
   as *accuracy* differences (pooled and Urdu-subset).
-- **Status:** OPEN — must be settled BEFORE the Phase 7 freeze.
+- **Status:** CLOSED 2026-09-02 — authors confirmed the analysis
+  plan is unchanged.
 - **Finding:** Following D-004, the primary corpus is 406 dyslexic vs
   212 non-dyslexic (1.92:1). The majority-class baseline is therefore
   **65.7% accuracy**, not 50%. On the released 852 it was 50%.
@@ -145,10 +146,10 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
   contrast. It does, however, make absolute accuracy a weak descriptive
   statistic, and it raises the question of whether class weighting or a
   balanced metric should enter the protocol.
-- **Resolution:** PENDING. To be decided with the authors before
-  `configs/endpoints.yaml` is frozen at Phase 7. Options: keep accuracy
-  deltas as the co-primary endpoints (protocol unchanged, imbalance
-  reported); switch the co-primary metric to balanced accuracy or
-  macro-F1; or keep accuracy but add class weighting to the loss for
-  every arm identically. No decision is assumed; nothing is implemented
-  either way until the authors rule.
+- **Resolution:** CLOSED. The authors confirmed on 2026-09-02 that the
+  plan stands as written: accuracy deltas remain the co-primary
+  endpoints, no class weighting is added, and the deduplicated corpus is
+  used as-is. The 65.7% majority-class baseline is reported alongside
+  absolute accuracy so the numbers are read correctly. The paired A2-A1
+  contrast is unaffected either way, since both arms see the identical
+  split.

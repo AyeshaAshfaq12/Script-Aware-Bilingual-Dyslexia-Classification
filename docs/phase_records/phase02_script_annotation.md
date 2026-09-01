@@ -2,8 +2,8 @@
 
 - **Date:** 2026-09-01
 - **Phase:** Phase 2 (Guide §3)
-- **Status:** **BLOCKED (partial)** — annotator A complete and validated;
-  annotator B (human) not started; adjudication cannot run until it is.
+- **Status:** **PASS** (completed 2026-09-02). Annotator A, annotator B,
+  adjudication, and `scripts_final.csv` all complete.
 
 ## Actions performed
 
@@ -133,6 +133,32 @@ paper's Data section, which requires the adjudicated
   distinct-image annotation unit are additions that strengthen the
   protocol; both are documented in `protocol.md`.
 
-## Status
+## Completion (2026-09-02)
 
-**BLOCKED** — awaiting the annotator B pass (human).
+Annotator B (human) completed all 638 units. Adjudication policy fixed
+by the authors: **annotator B is authoritative on every A/B
+disagreement**, so `scripts_final.csv` reproduces the human's tags
+wherever the human gave one. The paper must describe adjudication as
+*human annotator authoritative*, not as case-by-case joint resolution.
+
+| Quantity | Value |
+|---|---|
+| Units judged by both annotators | 635 of 638 |
+| **Cohen's kappa (human vs AI)** | **0.8489** |
+| Raw agreement | 92.13% (585/635) |
+| Disagreements, resolved to annotator B | 50 |
+| Units B left blank, resolved by the human author | 3 (units 315, 374, 456) |
+
+Final composition: **urdu 420 (65.8%), digit 136 (21.3%),
+english 82 (12.9%)**.
+Digit glyphs: **western 135, eastern_arabic_indic 0, unclear 1**.
+Ambiguous flags: 117 (18.3%).
+
+The three blanks were units annotator B marked "not clear image". The
+human author read them directly at full resolution and recorded
+315 -> english, 374 -> digit/western, 456 -> urdu, all retaining
+`ambiguous=1`; logged in `blank_resolutions.csv` with reasons. All three
+readings differ from annotator A's, which is why they were not
+auto-filled from A.
+
+**Status: PASS.**

@@ -1,0 +1,7 @@
+FOR ANNOTATION:
+
+python src/annotate.py        # blind, resumable, ~638 units
+python src/agreement.py --stage disagreements
+# fill in `final` + `reason` for every row of disagreements.csv
+python src/agreement.py --stage final
+

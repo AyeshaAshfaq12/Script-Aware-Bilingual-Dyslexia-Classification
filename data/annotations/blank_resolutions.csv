@@ -1,0 +1,4 @@
+unit_id,final,digit_glyph,reason
+315,english,na,"Annotator B recorded 'not clear image' and left the tag blank. Resolved 2026-09-02 by the human author on direct inspection of the full-resolution image: read as a malformed Latin letter. Kept ambiguous=1."
+374,digit,western,"Annotator B recorded 'not clear image' and left the tag blank. Resolved 2026-09-02 by the human author on direct inspection of the full-resolution image: read as a Western numeral 1. Kept ambiguous=1."
+456,urdu,na,"Annotator B recorded 'not clear image' and left the tag blank. Resolved 2026-09-02 by the human author on direct inspection of the full-resolution image: read as an Urdu letter. Kept ambiguous=1."
