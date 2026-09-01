@@ -1,0 +1,72 @@
+# Co-primary endpoints and analysis plan — guide sections 7, 8, 10.
+#
+# STATUS: S is not yet computed; it comes from the Phase 6 pilot.
+# This file is frozen at Phase 7 by `git tag freeze-v1`, before any
+# test-set evaluation (hard rule 1).
+
+version: 1
+frozen: false
+
+corpus:
+  primary: "618 deduplicated images (406 dyslexic / 212 non-dyslexic)"
+  sensitivity: "852 released files, secondary analysis only"
+  majority_class_baseline: 0.6570   # 406/618 — accuracy must be read against this
+
+primary_pair:
+  treatment: A2      # script-conditioned, oracle script id
+  control: A1        # matched-capacity, script-agnostic
+  rationale: >
+    Identical capacity, identical tuning budget, identical split;
+    differing only in whether the attention gates see the script.
+
+co_primary_endpoints:
+  - id: pooled_delta
+    description: "pooled A2 - A1 accuracy difference on the test partition"
+    statistic: paired_t_test
+  - id: urdu_delta
+    description: "Urdu-subset A2 - A1 accuracy difference on the test partition"
+    statistic: paired_t_test
+    rationale: >
+      The script-statistics argument predicts gains concentrate in Urdu,
+      so an Urdu-specific effect must not be averaged away into a flat
+      pooled number.
+
+multiplicity:
+  method: holm
+  family: [pooled_delta, urdu_delta]
+  alpha_family: 0.05
+  alpha_per_endpoint_for_power: 0.025   # Holm-adjusted, used in Phase 6
+
+effect:
+  delta_min: 0.015          # pre-specified minimal effect of interest: 1.5 accuracy points
+  target_power: 0.80
+
+repeats:
+  pilot_seeds: [201, 202, 203, 204, 205]
+  sd_pilot: null            # filled by Phase 6
+  S: null                   # filled by Phase 6
+  S_floor: 10
+  S_ceiling: 30
+  final_seeds: null         # 301..(300+S), identical across all arms
+
+statistics:
+  primary_test: "scipy.stats.ttest_rel on the S seed-paired differences"
+  robustness_test: "scipy.stats.wilcoxon on the same differences"
+  effect_size: "Cohen's dz = mean(d) / sd(d, ddof=1)"
+  interval: "95% CI, scipy.stats.t.interval with df = S-1"
+
+exploratory:
+  # Reported with means, SDs and CIs. NO significance claims (guide section 10).
+  - A2_vs_A3
+  - depth_sweep
+  - A2_prime_predicted_script
+  - A4_per_script_experts
+  - A5_identify_then_branch
+  - per_script_breakdowns_other_than_urdu
+  - sensitivity_corpus_852
+
+reporting:
+  metrics: [accuracy, precision, recall, f1, auc]
+  per_script: [urdu, english, digit]
+  aggregation: "mean +/- SD over seeds"
+  null_results: "reported with the same prominence as positive ones (hard rule 6)"

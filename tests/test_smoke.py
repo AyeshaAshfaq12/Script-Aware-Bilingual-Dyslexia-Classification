@@ -200,3 +200,68 @@ class TestDeterminism:
         a = self._first_epoch_loss(SMOKE_SEED)
         c = self._first_epoch_loss(SMOKE_SEED + 1)
         assert a != c, "different seeds produced identical loss"
+
+
+class TestSplitEquivalence:
+    """The cached-prefix training path must be EXACTLY the full model.
+
+    Training only the suffix on cached frozen features is what makes the
+    local-CPU budget feasible. It is valid only because the backbone is
+    frozen and no augmentation is used, so the prefix output is a
+    constant function of the image. If that ever stops holding, these
+    assertions fail loudly rather than silently changing the results.
+    """
+
+    CASES = [
+        ("A1", {"depth_config": "early"}),
+        ("A1", {"depth_config": "mid"}),
+        ("A2", {"depth_config": "late"}),
+        ("A2", {"depth_config": "all"}),
+        ("A0", {}),
+        ("A3", {}),
+        ("A5", {}),
+        ("script_clf", {}),
+    ]
+
+    @pytest.mark.parametrize("arm,kw", CASES)
+    def test_prefix_suffix_equals_full(self, arm, kw):
+        x, s, _ = data.as_arrays("val", "primary", limit=8)
+        pre, suf, full = models.build_split(arm, weights=W, **kw)
+        feats = pre.predict(x, verbose=0)
+        via_split = (suf.predict(feats, verbose=0) if arm == "script_clf"
+                     else suf.predict([feats, s], verbose=0))
+        via_full = (full.predict(x, verbose=0) if arm == "script_clf"
+                    else full.predict([x, s], verbose=0))
+        np.testing.assert_array_equal(via_split, via_full)
+
+    @pytest.mark.parametrize("arm,kw", CASES)
+    def test_suffix_owns_all_trainable_weights(self, arm, kw):
+        """Training the suffix must update every trainable weight of the
+        full model, or the saved artifact would not match what trained."""
+        pre, suf, full = models.build_split(arm, weights=W, **kw)
+        full_ids = {id(w) for w in full.trainable_weights}
+        suf_ids = {id(w) for w in suf.trainable_weights}
+        assert full_ids == suf_ids
+        assert not pre.trainable_weights, "prefix must be fully frozen"
+
+    @pytest.mark.parametrize("depth", models.DEPTH_CONFIGS)
+    def test_split_a1_a2_capacity_match(self, depth):
+        kw = {"depth_config": depth, "d": 16, "r": 16, "weights": None}
+        _, _, f1 = models.build_split("A1", **kw)
+        _, _, f2 = models.build_split("A2", **kw)
+        assert models.param_counts(f1) == models.param_counts(f2)
+
+    def test_training_suffix_changes_full_model_output(self):
+        # op determinism requires an explicit seed for Dropout
+        keras.utils.set_random_seed(SMOKE_SEED)
+        x, s, y = data.as_arrays("val", "primary", limit=16)
+        pre, suf, full = models.build_split("A2", depth_config="late",
+                                            weights=W)
+        before = full.predict([x, s], verbose=0)
+        feats = pre.predict(x, verbose=0)
+        suf.compile(optimizer=keras.optimizers.Adam(1e-2),
+                    loss="binary_crossentropy")
+        suf.fit([feats, s], y, epochs=2, batch_size=8, verbose=0)
+        after = full.predict([x, s], verbose=0)
+        assert np.abs(after - before).max() > 0, \
+            "suffix training did not propagate to the full model"

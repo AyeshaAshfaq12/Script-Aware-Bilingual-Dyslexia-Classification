@@ -1,0 +1,111 @@
+# Tuning grid — Phase 5 (guide section 6).
+#
+# Guide section 6 permits the authors to amend this grid BEFORE the
+# Phase 7 freeze and never after. This file records the amendment the
+# authors approved on 2026-09-02, together with the measurements that
+# motivated it, so the decision is auditable.
+#
+# STATUS: amended, not yet frozen. Frozen at Phase 7 by `git tag freeze-v1`.
+
+version: 1
+amended_utc: "2026-09-02"
+frozen: false
+
+# ---------------------------------------------------------------- axes
+common:
+  batch_size: 16
+  max_epochs: 50
+  early_stopping:
+    monitor: val_loss
+    patience: 5
+    restore_best_weights: true
+  loss: binary_crossentropy
+  input_resolution: [224, 224, 3]
+  preprocessing: mobilenet_preprocess_input   # scales to [-1, 1]
+  augmentation: none                          # hard rule 3
+  corpus: primary                             # 618 deduplicated images
+  split: data/splits/split_v1.json
+
+tuning:
+  seeds: [101, 102, 103]
+  selection_metric: mean_val_accuracy
+  tie_break: [val_f1, fewer_params]
+  # Model selection uses the VALIDATION partition only (hard rule 1).
+
+# Swept for every arm
+optimizer: [rmsprop, adam]
+learning_rate: [1.0e-3, 3.0e-4, 1.0e-4]
+
+# SCA arms (A1, A2) only. Applied IDENTICALLY to both arms — this is
+# the fairness guarantee of guide section 6.
+sca:
+  depth_config: [early, mid, late, all]
+  d: [16]          # amended: was [8, 16]
+  r: [16]          # amended: was [8, 16]
+
+weight_decay: [0.0]  # amended: was [0.0, 1.0e-4]
+
+# ------------------------------------------------------- A0 baselines
+# Guide section 5.3 makes the full 6x3 matrix optional. We run the
+# MobileNetV1 anchor under all three optimizers and every other backbone
+# at its best optimizer from the source study's Table 3.
+a0:
+  anchor:
+    backbone: mobilenet
+    optimizers: [adam, sgd, rmsprop]
+  others:
+    - {backbone: cnn_scratch,      optimizer: sgd}      # 0.7743 vs adam .7053, rmsprop .5988
+    - {backbone: vgg16,            optimizer: rmsprop}  # 0.7684 vs adam .7602, sgd .7532
+    - {backbone: inceptionv3,      optimizer: rmsprop}  # 0.7661 vs adam .7474, sgd .7497
+    - {backbone: mobilenetv2,      optimizer: rmsprop}  # 0.7836, tie with sgd (see note)
+    - {backbone: mobilenetv3small, optimizer: adam}     # 0.7216 vs rmsprop .7146, sgd .6082
+  optimizers_from_source_table3:
+    source: "Kashif et al. (2026), Table 3, p.10 (repeated-run comparison)"
+    transcribed_utc: "2026-09-02"
+    anchor_reference: "MobileNet1 + RMSProp = 0.7871 +/- 0.0102, CI [0.7730, 0.8013]"
+    tie_break_note: >
+      MobileNet2 scores 0.7836 mean accuracy under BOTH RMSProp
+      (+/-0.0128) and SGD (+/-0.0161). RMSProp is selected because it has
+      the lower standard deviation and the higher F1 (0.7832 vs 0.7756).
+      Recorded here so the choice is not silent.
+
+# ------------------------------------------------- amendment rationale
+amendment:
+  approved_by: authors
+  date: "2026-09-02"
+  before_freeze: true
+  changed:
+    weight_decay: {from: [0.0, 1.0e-4], to: [0.0]}
+    sca_d:        {from: [8, 16],       to: [16]}
+    sca_r:        {from: [8, 16],       to: [16]}
+  unchanged:
+    - optimizer
+    - learning_rate
+    - sca.depth_config      # the scientifically motivated sweep, kept in full
+    - tuning.seeds          # seeds are never traded away for compute
+  reason: >
+    All experiments run on a local CPU (Intel i7-6600U, 2 cores), chosen
+    over Colab/Kaggle for reproducibility: full op determinism is
+    reliable on CPU and unavailable for several GPU kernels. Measured on
+    this machine, the full six-axis grid costs 96 configs x 3 seeds =
+    288 runs per SCA arm, about 26 h for A1+A2 tuning alone and ~35 h
+    for the whole experiment before thermal throttling. Trimming three
+    axes brings that to 24 configs x 3 seeds = 72 runs per arm, about
+    6.5 h for A1+A2 and ~13 h overall.
+    The depth sweep is retained in full because it carries a stated
+    contribution and its own figure. weight_decay was dropped because a
+    1e-4 penalty over the ~9 epochs early stopping actually uses, on a
+    frozen backbone, is immaterial. d and r were fixed because they are
+    SCA-internal and, held identical across A1 and A2, preserve matched
+    capacity and equal tuning budget exactly. Repeated seeds were not
+    reduced, since the power analysis in Phase 6 depends on them.
+  measurements:
+    machine: "Intel i7-6600U, 2 physical cores, 16 GB RAM, TF 2.20.0 CPU"
+    epochs_to_early_stop_observed: [7, 8, 9, 11]
+    seconds_per_epoch_by_depth: {late: 4.4, mid: 12.5, early: 20.7, all: 21.6}
+    seconds_per_run_by_depth:   {late: 48, mid: 138, early: 228, all: 238}
+    note: >
+      The frozen prefix of each arm is cached per depth config, which is
+      exactly equivalent because the backbone is frozen and no
+      augmentation is used. Verified numerically by
+      tests/test_smoke.py::TestSplitEquivalence.

@@ -327,3 +327,124 @@ if __name__ == "__main__":
                 p = assert_capacity_match(cfg)
                 print(f"{depth:6s} {d:3d} {r:3d} "
                       f"{p['total']:12,d} {p['trainable']:12,d}  OK")
+
+
+# --------------------------------------------------------------------
+# split builders: frozen cacheable prefix + trainable suffix
+# --------------------------------------------------------------------
+# The backbone is frozen and no augmentation is used (hard rule 3), so
+# the output of every frozen layer is a constant function of the input
+# image. Computing that prefix once per depth config and training only
+# the suffix is EXACTLY equivalent to end-to-end training, and is what
+# makes the local-CPU budget feasible. Equivalence is asserted in
+# tests/test_smoke.py::TestSplitEquivalence.
+
+_A0_CTORS = {
+    "mobilenet": "MobileNet",
+    "mobilenetv2": "MobileNetV2",
+    "mobilenetv3small": "MobileNetV3Small",
+    "vgg16": "VGG16",
+    "inceptionv3": "InceptionV3",
+}
+
+
+def _frozen_backbone(backbone: str, weights: str | None):
+    base = getattr(keras.applications, _A0_CTORS[backbone])(
+        input_shape=(IMG_SIZE, IMG_SIZE, 3), include_top=False,
+        weights=weights)
+    base.trainable = False
+    return base
+
+
+def build_split(arm: str, backbone: str = "mobilenet",
+                depth_config: str = "mid", d: int = 16, r: int = 16,
+                dropout: float = 0.5, weights: str | None = "imagenet"):
+    """Return (prefix, suffix, full).
+
+    prefix : image -> frozen features            (None if nothing is frozen)
+    suffix : (features, script_id) -> output     (the trainable part)
+    full   : (image, script_id) -> output        (shares suffix weights)
+
+    arm in {A0, A1, A2, A3, A5, script_clf}. A2' reuses A2 with predicted
+    script ids; A4 reuses A0 per script subset.
+    """
+    img, sid = _inputs()
+
+    # ---- arms with a fully frozen backbone -------------------------
+    if arm in ("A0", "A3", "A5", "script_clf"):
+        if backbone == "cnn_scratch":
+            if arm != "A0":
+                raise ValueError("cnn_scratch is only used for A0")
+            return None, None, build_a0("cnn_scratch", weights=None,
+                                        dropout=dropout)
+        base = _frozen_backbone(backbone, weights)
+        prefix = keras.Model(img, base(img, training=False), name="prefix")
+
+        fin = layers.Input(prefix.output_shape[1:], name="features")
+        if arm == "script_clf":
+            z = layers.GlobalAveragePooling2D(name="gap")(fin)
+            sout = layers.Dense(N_SCRIPTS, activation="softmax",
+                                name="script_out")(z)
+            suffix = keras.Model(fin, sout, name="suffix")
+            full = keras.Model(img, suffix(prefix(img)),
+                               name="script_classifier")
+            return prefix, suffix, full
+
+        fsid = layers.Input((), dtype="int32", name="script_id")
+        if arm == "A5":
+            flat = layers.Flatten(name="flatten")(fin)
+            outs = []
+            for tag in ("urdu", "english", "digit"):
+                h = layers.Dense(128, activation="relu",
+                                 name=f"dense_128_{tag}")(flat)
+                h = layers.Dropout(dropout, name=f"dropout_{tag}")(h)
+                outs.append(layers.Dense(1, activation="sigmoid",
+                                         name=f"out_{tag}")(h))
+            stacked = layers.Concatenate(name="stack_heads")(outs)
+            onehot = ScriptOneHot(name="route_onehot")(fsid)
+            sout = RouteSelect(name="route_select")(stacked, onehot)
+        else:
+            z = _head(fin, dropout)
+            if arm == "A3":
+                onehot = ScriptOneHot(name="script_onehot")(fsid)
+                z = layers.Concatenate(name="concat_script")([z, onehot])
+            sout = layers.Dense(1, activation="sigmoid", name="out")(z)
+
+        suffix = keras.Model([fin, fsid], sout, name="suffix")
+        full = keras.Model([img, sid], suffix([prefix(img), sid]),
+                           name=f"{arm}_{backbone}")
+        return prefix, suffix, full
+
+    # ---- SCA arms: prefix ends at the FIRST tap --------------------
+    if arm not in ("A1", "A2"):
+        raise ValueError(f"unknown arm '{arm}'")
+    conditioned = (arm == "A2")
+
+    base = _mobilenet_v1(weights)
+    _assert_linear_chain(base)
+    tap_names = set(taps_for(depth_config))
+    chain = base.layers[1:]
+    names = [l.name for l in chain]
+    first = min(names.index(t) for t in tap_names)
+
+    px = img
+    for lyr in chain[:first + 1]:
+        px = lyr(px)
+    prefix = keras.Model(img, px, name="prefix")
+
+    fin = layers.Input(prefix.output_shape[1:], name="features")
+    fsid = layers.Input((), dtype="int32", name="script_id")
+    sx = SCA(fin.shape[-1], d=d, r=r, conditioned=conditioned,
+             name=f"sca_{names[first]}")(fin, fsid)
+    for lyr in chain[first + 1:]:
+        sx = lyr(sx)
+        if lyr.name in tap_names:
+            sx = SCA(sx.shape[-1], d=d, r=r, conditioned=conditioned,
+                     name=f"sca_{lyr.name}")(sx, fsid)
+    sx = _head(sx, dropout)
+    sout = layers.Dense(1, activation="sigmoid", name="out")(sx)
+
+    suffix = keras.Model([fin, fsid], sout, name="suffix")
+    full = keras.Model([img, sid], suffix([prefix(img), sid]),
+                       name=f"{arm}_{depth_config}_d{d}_r{r}")
+    return prefix, suffix, full

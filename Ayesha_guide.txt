@@ -5,3 +5,6 @@ python src/agreement.py --stage disagreements
 # fill in `final` + `reason` for every row of disagreements.csv
 python src/agreement.py --stage final
 
+------------------------------------------
+
+Ek document create krwana chat ka, from prompts to responses, and reasoning of responses
