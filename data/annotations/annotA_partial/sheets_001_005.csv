@@ -1,0 +1,81 @@
+unit_id,script,digit_glyph,ambiguous,note
+362,urdu,na,0,kaaf-like curved form
+385,urdu,na,0,dal/zal family with dot
+73,urdu,na,0,ain
+587,digit,western,0,5
+14,urdu,na,0,meem
+357,urdu,na,0,laam
+238,urdu,na,0,toe
+325,digit,western,0,8
+545,urdu,na,0,meem with descender
+52,urdu,na,0,suad family
+307,urdu,na,0,qaaf with two dots
+190,digit,western,0,4
+537,urdu,na,0,ain large
+66,urdu,na,1,dominant zay-like glyph; two fainter characters lower in frame
+441,digit,western,0,9
+541,urdu,na,0,zuad
+567,urdu,na,0,suad
+477,urdu,na,0,jeem/che family with dots
+383,urdu,na,0,hey/jeem
+303,urdu,na,0,zoe
+430,urdu,na,1,small angular stroke; reads as hey or Latin L
+489,urdu,na,0,zuad
+247,urdu,na,0,re/dal family
+433,urdu,na,0,jeem/hey with heavy top bar
+460,digit,western,0,2
+186,digit,western,0,7
+564,urdu,na,0,se with three dots
+515,urdu,na,0,zay/zhe
+374,urdu,na,1,bare vertical stroke; alif vs Latin l/I vs digit 1
+234,urdu,na,1,hooked form; kaaf/tay vs Latin Y
+632,urdu,na,1,meem dominant; second character partly in frame
+10,urdu,na,0,ghain
+490,urdu,na,0,toe/zoe small
+399,urdu,na,0,hey with loop
+483,urdu,na,0,re
+149,english,na,0,lowercase m
+566,urdu,na,0,sheen
+481,urdu,na,0,zhe
+15,urdu,na,0,noon
+370,digit,western,0,6
+28,urdu,na,1,jeem/hey dominant; faint characters below
+110,urdu,na,0,zhe with three dots
+586,digit,western,0,4
+423,english,na,0,uppercase T
+173,digit,western,0,1
+154,english,na,0,uppercase Z
+74,urdu,na,0,ain
+138,english,na,0,uppercase H
+240,urdu,na,0,be/noon cursive
+453,urdu,na,1,loop with tail; Urdu waw vs digit 9
+136,english,na,0,uppercase F
+438,urdu,na,0,zal/zay with dot
+340,urdu,na,0,zal
+41,urdu,na,0,ghain
+407,urdu,na,0,hey/he
+122,english,na,0,lowercase u
+112,urdu,na,0,qaaf with two dots
+592,digit,western,1,closed circle; digit 0 vs Latin O
+228,urdu,na,0,sheen/se with dots
+292,urdu,na,1,toe/zoe over a second stroke
+630,urdu,na,0,be/noon
+30,urdu,na,0,re/rre heavy stroke
+479,urdu,na,0,ghain
+147,urdu,na,0,zay
+124,digit,western,1,closed circle; digit 0 vs Latin O vs Urdu he
+475,urdu,na,0,be/te flat with dots
+195,digit,western,0,8
+287,urdu,na,0,che/jeem with dot
+617,urdu,na,0,noon with dot above
+80,urdu,na,1,small curled glyph; hamza vs cursive 8
+237,urdu,na,0,te flat with two dots
+133,english,na,0,uppercase K
+419,urdu,na,1,loop with long tail; waw vs digit 9
+33,urdu,na,0,laam
+281,english,na,1,uppercase Y vs Urdu hooked form
+506,urdu,na,0,be/te flat with dots
+13,english,na,1,uppercase J vs Urdu laam
+6,digit,western,0,9
+597,digit,western,0,5
+157,english,na,1,lowercase i vs Urdu alif with dot

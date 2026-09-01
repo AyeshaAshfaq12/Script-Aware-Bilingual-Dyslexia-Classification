@@ -1,0 +1,79 @@
+unit_id,script,digit_glyph,ambiguous,note
+59,digit,western,0,4
+498,urdu,na,0,laam/noon small
+293,urdu,na,0,dal/dde
+306,urdu,na,0,fe/qaaf
+196,digit,western,0,2
+84,digit,western,0,2
+623,urdu,na,0,ghain/noon with dot
+450,english,na,1,lowercase y vs digit 4
+351,urdu,na,0,ain
+302,urdu,na,0,toe/zoe
+289,urdu,na,0,hey/che
+467,digit,western,0,9
+525,urdu,na,0,jeem with loop
+296,urdu,na,0,zay
+216,digit,western,0,7
+568,urdu,na,0,zuad
+233,urdu,na,1,stroke with dot; zal vs Latin i vs digit 1
+389,urdu,na,0,zoe above zay
+141,english,na,0,lowercase d
+268,english,na,0,uppercase S
+261,urdu,na,0,laam/kaaf ligature
+404,english,na,1,uppercase P vs Urdu meem
+442,english,na,0,uppercase Q
+272,digit,western,1,loosely drawn 2
+158,digit,western,0,2
+426,urdu,na,1,fe-like form with circle; Urdu fe vs Latin F
+637,english,na,1,uppercase L vs Urdu hooked form
+87,digit,western,0,2
+466,digit,western,0,9
+410,digit,western,1,closed circle; digit 0 vs Latin O
+109,urdu,na,0,zoe above zay
+144,english,na,0,lowercase f
+291,urdu,na,0,re/dal
+113,urdu,na,0,be/te with stroke
+297,urdu,na,0,zhe with three dots
+215,digit,western,0,6
+425,english,na,0,uppercase F
+267,urdu,na,0,hey/waw
+275,digit,western,0,5
+353,urdu,na,0,qaaf/fe
+608,urdu,na,0,hey small
+396,urdu,na,0,zoe
+636,urdu,na,1,small curled glyph; hey vs Latin S
+81,urdu,na,0,che/jeem with dots
+563,urdu,na,0,rre with toe
+558,urdu,na,0,re/dal
+4,digit,western,0,7
+459,english,na,0,uppercase U
+78,urdu,na,0,noon with dot
+8,digit,western,1,closed circle; digit 0 vs Latin O
+392,urdu,na,1,multi-character ligature in frame
+434,english,na,1,lowercase i vs Urdu zal
+576,urdu,na,0,hey/meem
+76,urdu,na,0,qaaf
+2,digit,western,0,4
+486,urdu,na,0,zay/rre with toe
+101,urdu,na,0,fe/be bowl
+201,urdu,na,0,ghain/khe
+391,urdu,na,0,seen/sheen ligature
+373,digit,western,0,9
+448,english,na,0,uppercase W
+596,digit,western,0,4
+258,urdu,na,0,ain
+350,urdu,na,0,toe
+382,urdu,na,0,tay/jeem with dots
+100,urdu,na,0,toe in bowl
+283,urdu,na,0,be/te bowl with dots
+342,urdu,na,0,rre with toe
+408,urdu,na,0,hey/suad
+178,digit,western,0,7
+327,urdu,na,1,bare vertical stroke; alif vs digit 1
+610,urdu,na,1,small curl; hey vs digit 2
+299,urdu,na,0,sheen/seen ligature
+317,digit,western,1,closed circle; digit 0 vs Latin O
+550,urdu,na,0,meem/re
+519,urdu,na,1,toe/kaaf ligature
+22,urdu,na,1,several characters in frame
+472,urdu,na,0,be

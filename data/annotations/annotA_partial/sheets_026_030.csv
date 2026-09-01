@@ -1,0 +1,81 @@
+unit_id,script,digit_glyph,ambiguous,note
+397,urdu,na,0,ain
+38,urdu,na,0,zoe
+435,english,na,0,lowercase h
+174,digit,western,0,4
+582,urdu,na,0,hey/be
+221,digit,western,0,9
+311,english,na,1,uppercase P vs Urdu meem
+153,digit,western,1,digit 4 vs Latin y
+528,english,na,0,lowercase c
+527,urdu,na,0,khe with dot
+573,urdu,na,0,fe/qaaf
+403,urdu,na,0,laam/noon
+431,english,na,0,lowercase d
+209,digit,western,1,closed circle; digit 0 vs Latin O
+152,english,na,0,lowercase t
+44,urdu,na,0,laam/noon bowl
+20,urdu,na,1,bare vertical stroke; alif vs digit 1
+599,digit,western,0,7
+416,digit,western,0,6
+82,urdu,na,1,several characters in frame
+199,digit,western,1,closed circle; digit 0 vs Latin O
+551,urdu,na,0,be
+510,urdu,na,0,jeem with dot
+625,urdu,na,0,ain/noon-ghunna
+337,urdu,na,0,khe with dot
+305,urdu,na,1,looped form with dots; hey vs digit 8
+492,digit,western,0,3
+197,digit,western,0,1
+185,digit,western,0,6
+454,english,na,0,uppercase H
+312,urdu,na,0,noon in bowl
+532,urdu,na,1,multi-character ligature in frame
+505,urdu,na,0,tay/toe ligature
+111,urdu,na,0,seen
+119,english,na,0,uppercase E
+220,digit,western,0,9
+65,urdu,na,0,jeem/che small
+77,urdu,na,0,meem
+624,urdu,na,0,toe small
+31,urdu,na,0,zoe above zay
+245,urdu,na,0,zoe/toe with tail
+26,urdu,na,0,qaaf/fe ligature
+387,urdu,na,0,dde/zal heavy
+542,urdu,na,0,ghain
+250,urdu,na,0,zay/rre
+501,urdu,na,0,waw
+335,urdu,na,0,hey with dots
+170,digit,western,0,6
+282,urdu,na,0,be/noon bowl with dot
+269,urdu,na,0,pe/se with dots below
+39,urdu,na,0,ain/hey heavy
+35,urdu,na,0,suad
+437,english,na,0,uppercase K
+137,english,na,0,uppercase G
+43,urdu,na,0,te/be with two strokes
+18,urdu,na,0,seen
+90,digit,western,0,5
+355,urdu,na,0,kaaf/gaaf ligature
+633,urdu,na,0,laam/be
+280,urdu,na,0,laam/re
+127,english,na,0,uppercase M
+160,english,na,0,uppercase X
+500,urdu,na,0,noon-ghunna/ain small
+502,digit,western,1,small circle; digit 0 vs Latin o
+315,digit,western,1,loosely drawn 8
+171,digit,western,0,7
+619,urdu,na,0,seen/sheen
+241,urdu,na,0,tay/jeem with dots
+463,digit,western,0,7
+572,urdu,na,0,ghain
+191,digit,western,1,two digits in frame (2 and 3)
+512,urdu,na,0,hey/jeem with dot
+9,urdu,na,0,zay/zhe
+45,urdu,na,0,meem
+231,urdu,na,1,loop with tail; waw vs digit 9
+17,digit,western,1,closed circle; digit 0 vs Latin O
+167,digit,western,0,2
+406,urdu,na,0,hey/dal
+308,urdu,na,0,be/te bowl
+429,english,na,1,lowercase b vs Urdu toe

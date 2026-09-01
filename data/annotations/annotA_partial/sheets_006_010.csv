@@ -1,0 +1,81 @@
+unit_id,script,digit_glyph,ambiguous,note
+522,urdu,na,0,be with dot below
+368,digit,western,0,4
+145,digit,western,0,9
+155,english,na,0,lowercase r
+187,digit,western,0,8
+5,digit,western,0,8
+571,urdu,na,0,ain/ghain
+400,urdu,na,0,qaaf with two dots
+203,urdu,na,1,fe dominant; row of smaller characters below
+627,urdu,na,0,ain with dot
+628,urdu,na,0,ain/noon-ghunna
+594,digit,western,0,2
+526,digit,western,1,cursive 2 vs Urdu hey
+470,urdu,na,1,short stroke with head; alif-madda vs digit 1
+413,digit,western,0,3
+262,urdu,na,0,kaaf ligature
+629,digit,western,1,closed circle; digit 0 vs Latin O
+402,urdu,na,0,laam/kaaf ligature
+427,urdu,na,1,bare vertical stroke; alif vs Latin l/I vs digit 1
+503,urdu,na,1,small hooked mark; hamza vs ain
+341,urdu,na,0,re/dal
+583,digit,western,0,1
+584,digit,western,0,2
+205,urdu,na,0,fe
+411,urdu,na,1,bare vertical stroke; alif vs digit 1
+163,digit,western,1,closed circle; digit 0 vs Latin O
+336,urdu,na,0,hey/che
+285,urdu,na,0,be with superscript mark
+193,digit,western,0,6
+222,digit,western,1,closed circle; digit 0 vs Latin O
+544,urdu,na,1,vertical with lower loop; toe vs Latin b vs digit 6
+224,digit,western,0,9
+543,urdu,na,0,qaaf with dots
+50,urdu,na,1,toe over zay; two characters in frame
+266,urdu,na,0,waw/dal family
+257,urdu,na,1,ain vs eastern Arabic-Indic 4 glyph
+242,urdu,na,0,tay/dal with head
+142,urdu,na,1,toe vs Latin b
+188,urdu,na,1,bare vertical stroke; alif vs digit 1
+181,digit,western,0,2
+271,urdu,na,1,bare vertical stroke; alif vs digit 1
+557,urdu,na,0,hey with dot
+67,urdu,na,1,several faint characters; dominant one indistinct
+126,english,na,1,uppercase Y vs X
+319,digit,western,0,2
+332,urdu,na,0,toe above be
+333,urdu,na,0,se/be with dots
+273,digit,western,0,3
+612,english,na,0,lowercase c
+60,urdu,na,0,kaaf/ye
+381,urdu,na,0,hey/jeem with dot
+150,english,na,0,lowercase n
+390,urdu,na,0,se/be with dots
+40,urdu,na,0,zay
+451,english,na,0,uppercase Z
+478,urdu,na,1,small curl; hey vs digit 2
+25,urdu,na,1,several characters in frame
+183,digit,western,0,3
+156,english,na,0,uppercase K
+565,urdu,na,0,seen
+499,urdu,na,0,meem
+323,digit,western,0,6
+614,urdu,na,0,ghain
+379,urdu,na,0,toe above be
+414,digit,western,0,4
+146,english,na,0,lowercase c
+274,digit,western,0,4
+474,urdu,na,0,toe above be
+63,urdu,na,0,be/tay in bowl
+139,english,na,0,uppercase I
+134,english,na,0,uppercase Q
+529,urdu,na,0,khe with dot
+354,urdu,na,0,qaaf with two dots
+358,english,na,1,uppercase P vs Urdu meem
+494,urdu,na,0,fe/qaaf
+168,digit,western,0,4
+469,digit,western,1,closed circle; digit 0 vs Latin O
+265,urdu,na,0,noon in bowl
+631,urdu,na,0,laam/toe ligature
+347,urdu,na,0,suad/hey

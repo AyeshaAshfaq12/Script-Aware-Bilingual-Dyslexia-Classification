@@ -1,0 +1,58 @@
+# ---------------------------------------------------------------
+# Dataset images are NEVER committed or redistributed.
+# Experiment Guide v1, hard rule 7: we release only our own
+# artifacts (annotations, split indices, code, results) keyed to
+# the original filenames. Images stay with Kashif et al. (2026).
+# ---------------------------------------------------------------
+data/raw/**
+!data/raw/manifest.txt
+!data/raw/checksums.csv
+!data/raw/.gitkeep
+
+# Annotation contact sheets EMBED the dataset images. Committing them
+# would redistribute the corpus (hard rule 7). The presentation order
+# and the tags themselves are committed; the rendered sheets are not.
+data/annotations/contact_sheets/*.png
+
+# Source material: dataset archive + copyrighted publisher PDF.
+Related_Research_Work/
+Reference_Dataset/
+
+# Run artifacts: archived to Drive/Zenodo, not to git.
+runs/**
+!runs/.gitkeep
+
+# Model weights / large binaries
+*.h5
+*.keras
+*.weights
+*.ckpt
+*.pb
+saved_model/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# LaTeX build products
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz
+paper/*.fls
+paper/*.fdb_latexmk

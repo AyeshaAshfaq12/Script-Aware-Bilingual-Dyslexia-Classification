@@ -1,0 +1,19 @@
+{
+  "decision": "D-004 resolved: primary=deduplicated 618, sensitivity=released 852",
+  "released_files": 852,
+  "distinct_images": 638,
+  "annotation_units": 638,
+  "cross_class_units_excluded": 20,
+  "primary": {
+    "n": 618,
+    "yes_dyslexic": 406,
+    "no_nondyslexic": 212,
+    "class_ratio_yes_to_no": 1.9151
+  },
+  "sensitivity": {
+    "n": 852,
+    "yes": 426,
+    "no": 426
+  },
+  "representative_rule": "lexicographically smallest uid in sha256 group"
+}

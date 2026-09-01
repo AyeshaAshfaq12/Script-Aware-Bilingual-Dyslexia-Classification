@@ -1,0 +1,535 @@
+% ============================================================
+% Script-Aware Bilingual Dyslexia Handwriting Classification
+% Draft: ScriptAwareDyslexia_TBD_v1_2026-09
+% Venue: TBD. Neutral article class, retargetable.
+% Compiler: pdfLaTeX. Citation: numeric natbib (switchable).
+% Adapted from academic-paper skill latex_article_template.tex
+% (overrides: single spacing, numeric citations, CS structure).
+% ============================================================
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{hyperref}
+
+% --- Citation style: numeric now; switch to author-year by
+% --- replacing the two lines below with:
+% --- \usepackage[round]{natbib} \bibliographystyle{apalike}
+\usepackage[numbers,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+
+% Visible TODO marker for items the authors must verify or decide.
+\newcommand{\todonote}[1]{\textcolor{red}{[TODO: #1]}}
+
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=blue,urlcolor=blue}
+
+\title{Does Script-Aware Conditioning Help? A Controlled Ablation for
+Urdu--English Bilingual Dyslexia Handwriting Classification}
+
+\author{%
+\todonote{Author order to confirm}\\
+First Author$^{1}$ \and Abdullah Butt$^{1}$\\
+$^{1}$\todonote{affiliation}%
+}
+
+\date{Draft v1, September 2026. Not for distribution.}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\todonote{Abstract is written last, after results exist. Placeholder
+only; no numbers may appear here that do not trace to executed
+experiments.}
+\end{abstract}
+
+% ============================================================
+\section{Introduction}
+% ============================================================
+
+Dyslexia is a neurodevelopmental disorder marked by persistent
+difficulty with reading, writing, and spelling, and children with
+dyslexia frequently exhibit handwriting anomalies such as irregular
+spacing, letter reversals, and inconsistent character sizing
+\citep{kashif2026}. Because handwriting can be collected with paper,
+a pen, and a phone camera, handwriting images are an unusually
+accessible signal for early screening support in settings where
+neuroimaging or specialist assessment is out of reach
+\citep{kashif2026, kunhoth2022}. A growing body of work applies deep
+learning to handwriting images for dyslexia and dysgraphia detection
+across writing systems, including Latin-script letter corpora
+\citep{isa2019, alqahtani2023, robaa2024}, Hindi word samples
+\citep{yogarajah2020}, and Chinese dictation responses
+\citep{liu2024dysditect}.
+
+Nearly all of this work is monolingual, and the available datasets
+and models concentrate on single-script settings. For Urdu, a
+low-resource language written in a cursive, dot-bearing Nastaliq
+style, the first bilingual children's handwriting dataset for
+dyslexia detection appeared only recently: \citet{kashif2026}
+collected 852 character-level images (426 from dyslexic and 426 from
+non-dyslexic children aged 6--10 in Pakistan), spanning the full
+English alphabet, the full Urdu alphabet, and digits, and benchmarked
+six script-agnostic convolutional and transfer-learning backbones
+under a repeated-run protocol, reporting a best mean accuracy of
+$0.7871 \pm 0.0102$ for MobileNetV1 with RMSProp. Their evaluation
+treats every character identically regardless of script: one shared
+backbone processes Urdu and English characters alike.
+
+This paper asks a deliberately narrow question about that design
+choice. Urdu and English character images have sharply different
+visual statistics. Urdu characters are cursive, carry
+identity-bearing dot (nuqta) configurations, and vary with ligature
+context, while English characters are discrete Latin glyphs;
+\citet{kashif2026} themselves note that the complexity of Urdu
+handwriting raises intra-class variability and complicates feature
+extraction. A script-agnostic backbone must devote shared capacity to
+both distributions at once. We therefore test whether
+\emph{explicitly conditioning the model on the script of each
+character image} improves binary dyslexic versus non-dyslexic
+classification relative to a script-agnostic baseline of matched
+capacity, holding the dataset, the split, and the training protocol
+fixed. The script-statistics argument predicts that any benefit
+should concentrate in the Urdu subset, so we treat the Urdu-subset
+effect as a first-class result alongside the pooled effect rather
+than allowing a script-specific gain to be averaged away. The
+dataset also contains handwritten digits; we retain digits as a third
+conditioning category throughout and defer interpretation of digit
+results until the numeral forms present in the images are verified
+\todonote{verify from the images whether digits are Western Arabic
+(0--9) or Eastern Arabic-Indic glyph forms before interpreting the
+digit category}.
+
+The claim we defend is relative, not absolute. The dataset's dyslexic
+and non-dyslexic samples were collected from different institutions,
+the released images carry no writer identifiers, and consequently
+evaluation must use an image-level split. Absolute accuracy under
+these conditions reflects within-dataset separability and cannot
+support a generalization or screening claim, and we make no such
+claim. What the design does support is a controlled comparison: every
+experimental arm trains and tests on the identical split under the
+identical confounds, so the systematic difference between an arm with
+script conditioning and its matched-capacity control is informative
+about the conditioning mechanism itself, even though the absolute
+numbers are not informative about deployment. We state the boundary
+of this logic explicitly in Section~\ref{sec:limitations}: it assumes
+the confounds are equally exploitable by both arms, an assumption we
+argue is reasonable but cannot prove. We report the matched-pair
+difference with repeated seeds, paired statistics, and effect sizes,
+and we report it whether it is positive, null, or negative.
+
+The contributions are:
+\begin{enumerate}
+  \item \textbf{Primary.} A script-conditioned character-level
+  classifier for Urdu--English bilingual dyslexia handwriting, and a
+  controlled ablation on the dataset of \citet{kashif2026} isolating
+  the effect of script conditioning against a matched-capacity
+  script-agnostic control under an identical image-level split, with
+  both arms tuned with equal effort, conditioning depth swept rather
+  than fixed arbitrarily, and enough repeated seeds that a small true
+  effect is not lost to run-to-run variance.
+  \item \textbf{Supporting.} A re-run of the backbones of
+  \citet{kashif2026} under our single fixed split, making all
+  comparisons in this paper internally consistent rather than
+  borrowed across differing random partitions.
+  \item \textbf{Supporting.} A per-script analysis (Urdu, English,
+  digits) of every arm, locating where conditioning helps and testing
+  the prediction that gains concentrate in Urdu.
+\end{enumerate}
+
+The remainder of the paper is organized as follows.
+Section~\ref{sec:related} positions this work and, in particular,
+disclaims mechanism-level novelty for script-aware computation, which
+is established in multi-script recognition. Section~\ref{sec:data}
+describes the dataset as released. Section~\ref{sec:method} specifies
+the conditioning mechanism and the matched-capacity control.
+Section~\ref{sec:setup} fixes the evaluation protocol.
+Section~\ref{sec:results} reports results,
+Section~\ref{sec:limitations} states limitations, and
+Section~\ref{sec:future} lists deferred extensions.
+
+% ============================================================
+\section{Related Work}
+\label{sec:related}
+% ============================================================
+
+\subsection{Handwriting-based dyslexia and dysgraphia detection}
+
+Automated analysis of children's handwriting for learning-disorder
+screening spans dysgraphia and dyslexia and a range of capture
+modalities; \citet{kunhoth2022} survey approaches from tablet-based
+kinematic features to offline handwriting images. For offline images
+in Latin script, a widely used line of work builds on a combined
+letter corpus assembled from NIST Special Database 19 uppercase
+letters, a Kaggle lowercase set, and samples from dyslexic
+schoolchildren in Penang, Malaysia, labeled at the letter level as
+Normal, Reversal, or Corrected \citep{isa2019, alqahtani2023,
+robaa2024}. On this corpus, \citet{isa2019} compared compact CNNs,
+\citet{alqahtani2023} reported hybrid CNN--SVM and CNN--RF pipelines,
+and \citet{robaa2024} combined transfer learning with Grad-CAM
+visualizations, reporting a test precision of 99.65\% and framing
+explainability as central to adoption. A recent extension synthesizes
+word images from the same letters and applies YOLO-based detection to
+localize Normal, Reversal, and Corrected letters within words
+\citep{yolo2025}. Beyond Latin script, \citet{yogarajah2020} classified
+Hindi word images from children identified by a screening instrument.
+Two properties of this literature matter for the present paper.
+First, the letter-orientation labels of the Penang-derived corpus are
+a different construct from a child-level dyslexia label: they mark
+what a letter looks like, not who wrote it. Second, these systems are
+monolingual; each model sees one script.
+
+\subsection{Bilingual dyslexia handwriting classification}
+
+The closest prior work is \citet{kashif2026}, who introduced the
+first bilingual Urdu--English children's handwriting dataset for
+dyslexia detection and evaluated CNN, VGG16, InceptionV3, and three
+MobileNet generations, each under three optimizers, with a
+repeated-run protocol reporting means, standard deviations, and
+confidence intervals. Every backbone in their study is
+script-agnostic: Urdu characters, English characters, and digits pass
+through one shared network with no script information. Their split is
+an 80:10:10 partition at the image level, and they identify the small
+dataset size and the absence of participant-wise validation as
+limitations of the framework's practical use. We adopt their dataset
+as-is, re-run their backbones under our own fixed split for internal
+consistency, and add precisely one design factor, script
+conditioning, under matched capacity.
+
+\subsection{Script-aware computation in handwriting recognition}
+
+Script-aware processing is not a new mechanism. Multi-script
+handwriting recognition has long combined script identification with
+recognition, either as cascaded stages or jointly; for example,
+MuLTReNets couples script identification and handwriting recognition
+in one multilingual network \citep{multrenets2020}. We therefore
+claim no novelty for the idea of conditioning computation on script.
+The contribution here is of a different kind: an application of
+script conditioning to bilingual dyslexia classification, where it
+has not previously been evaluated, together with a controlled
+ablation that isolates whether it helps in this setting at all. In
+recognition, script identity determines the label space, so
+script-awareness is structurally necessary; in binary dyslexia
+classification the label space is shared across scripts, and whether
+script conditioning helps is an open empirical question rather than a
+structural requirement. That question is what this paper answers.
+
+\subsection{Attention and conditioning in dyslexia models}
+
+Attention mechanisms have entered dyslexia detection, but not as
+script conditioning. DysDiTect \citep{liu2024dysditect} combines a
+ResNet-50 feature extractor with positional encoding, a
+bidirectional LSTM, and multi-head self-attention over the temporal
+sequence of a Chinese dictation task, trained on roughly 100{,}000
+character images from 1{,}064 children and reaching 83.2\% accuracy
+from handwriting features alone; notably, its data allowed a
+participant-level stratified split, which the dataset used here does
+not \todonote{keep this contrast; it motivates the Limitations
+section}. \citet{robaa2024} use attention-era architectures for
+explainability rather than conditioning. In both cases the setting is
+a single script, and attention serves sequence modeling or
+post-hoc explanation, not script-conditioned feature extraction.
+
+To the best of our knowledge, and based on literature searches
+conducted through September 2026 \todonote{authors: re-run this
+search at submission time and record queries and dates in the
+supplement}, no prior work evaluates script-conditioned computation
+for dyslexia classification on real bilingual handwriting. The
+nearest neighbors are \citet{kashif2026}, which is bilingual but
+script-agnostic, and \citet{liu2024dysditect}, which uses attention
+but is monolingual. This paper occupies exactly the cell those two
+works leave open, and claims only that cell.
+
+% ============================================================
+\section{Data}
+\label{sec:data}
+
+We use the bilingual children's handwriting dataset of
+\citet{kashif2026} exactly as released, with no exclusions and no
+re-collection. The release contains 852 character-level photographs,
+organized into two folders: 426 images from children labeled dyslexic
+(YES) and 426 from children labeled non-dyslexic (NO). Per the source
+study, each participating child, aged 6--10, wrote all letters of the
+English alphabet, all letters of the Urdu alphabet, and the digits
+0--9 on paper; characters were photographed individually with an
+iPhone~11 camera, screened for sharpness and completeness, and, for
+Urdu, checked for the visibility of dots, curves, loops, and stroke
+formation without any OCR-based correction that could erase
+dyslexia-relevant cues \citep{kashif2026}.
+
+Two properties of the release shape everything downstream and are
+stated here plainly rather than in fine print. First, the dyslexic
+and non-dyslexic classes were sourced from different institutions:
+dyslexic samples from a government institute for slow learners in
+Narowal and non-dyslexic samples from mainstream schools, with
+participants selected via school records and psychological testing
+\citep{kashif2026}. The class label is therefore confounded with
+collection site, and the label construct is institutional placement
+supported by psychological assessment, not an independent clinical
+dyslexia diagnosis. Second, the release contains no writer
+identifiers and no per-writer grouping; filenames do not link images
+to children. Writer-disjoint evaluation is consequently impossible on
+this release, which is why our evaluation is defined, and claimed,
+strictly within-dataset (Section~\ref{sec:setup}) and why the
+comparison logic of this paper is relative rather than absolute
+(Section~\ref{sec:method}).
+
+\paragraph{Script annotation.} The release provides the diagnosis
+label only; the script of each image is not recorded in metadata. We
+therefore annotate every image with a script tag
+$s \in \{\textsc{urdu}, \textsc{english}, \textsc{digit}\}$ by visual
+inspection. Both authors annotate all 852 images independently;
+inter-annotator agreement is reported, and disagreements are resolved
+jointly with the resolution logged. The annotation protocol also
+records, for every \textsc{digit} image, whether the glyph is a
+Western Arabic numeral (0--9) or an Eastern Arabic-Indic numeral
+form, since Urdu writing commonly uses the latter; digit-category
+results are interpreted only in light of this recorded composition.
+\todonote{Run the annotation pass and insert the agreement statistic
+and the digit glyph composition here.} Characters whose glyph form is
+ambiguous between scripts are flagged at annotation time and reported
+as a count. The completed script annotations will be released
+alongside our code as a supplement to the original dataset.
+
+\paragraph{Access and ethics.} The source study reports guardian
+consent, child assent, institutional approval, and consent to
+publication of data in an open-access format \citep{kashif2026}. The
+dataset is reachable via the link published in the source paper; we
+note that the paper's body describes the data as available at a
+public link while its formal Data Availability Statement describes
+availability on request, and we treat the published link as the
+operative access route. \todonote{Record the access date, retain a
+copy of the folder listing as accessed, and, recommended, obtain
+brief written confirmation from the corresponding author that use for
+this study is within the intended terms.}
+
+% ============================================================
+\section{Method}
+\label{sec:method}
+
+\subsection{Notation and design principle}
+
+Each sample is a character image $x$ with a binary label
+$y \in \{0,1\}$ (dyslexic, non-dyslexic) and an annotated script tag
+$s \in \{\textsc{urdu}, \textsc{english}, \textsc{digit}\}$
+(Section~\ref{sec:data}). All experimental arms share one design
+principle: every arm differs from its comparator by exactly one
+factor, and the primary comparison holds parameter count fixed while
+varying only the \emph{information} available to the model. Given 852
+training-eligible images, all arms are deliberately parameter-light:
+a frozen ImageNet-pretrained backbone with small trainable modules,
+following the frozen-extractor regime that \citet{kashif2026} found
+workable at this scale.
+
+\subsection{Backbone}
+
+The shared backbone is MobileNetV1 pretrained on ImageNet with
+convolutional layers frozen, matching the best-performing family in
+\citet{kashif2026} so that differences against their re-run setup are
+attributable to the added modules rather than to a backbone swap.
+Images are resized and normalized identically across all arms
+\todonote{fix exact input resolution and normalization once the
+re-run pipeline is implemented; mirror the source study where
+sensible}. The backbone exposes intermediate feature maps at three
+depths, referred to as early, mid, and late block boundaries, where
+conditioning modules may be inserted.
+
+\subsection{Script-conditioned attention (SCA) module}
+
+The conditioning mechanism is intentionally simple and
+parameter-light. Let $F \in \mathbb{R}^{H \times W \times C}$ be the
+feature map at an insertion depth, and let
+$e_s \in \mathbb{R}^{d}$ be a learned embedding of the script tag.
+The module computes channel-attention gates conditioned on script in
+the squeeze-and-excitation style \citep{hu2018squeeze}: the feature
+map is globally average-pooled to $z \in \mathbb{R}^{C}$, the
+concatenation $[z; e_s]$ passes through a two-layer bottleneck MLP
+with a sigmoid output $\alpha \in (0,1)^{C}$, and the module returns
+$F' = F \odot \alpha$ with a residual connection. Conditioning the
+gate computation on $e_s$ lets the network re-weight feature channels
+differently for Urdu, English, and digit inputs, which is the
+mechanism the script-statistics argument of the Introduction
+predicts should matter, particularly for Urdu's dot- and
+stroke-formation cues. Insertion depth is a swept factor, not a fixed
+choice: modules are inserted at early, mid, late, or all three
+boundaries, and the sweep is applied identically to the conditioned
+arm and its matched control so that neither side is handicapped.
+
+\subsection{Experimental arms}
+
+\begin{description}
+  \item[A0, re-run baselines.] The backbones and heads of
+  \citet{kashif2026}, re-implemented and re-run under our fixed split
+  and training protocol, anchoring all comparisons internally.
+  \item[A1, matched-capacity script-agnostic control.] The backbone
+  with SCA modules in which the script embedding $e_s$ is replaced by
+  a single \emph{learned constant} embedding shared by all inputs.
+  Parameter count, architecture, and tuning budget are identical to
+  A2; only the script information is removed. This is the primary
+  control.
+  \item[A2, script-conditioned model (ours).] The backbone with SCA
+  modules receiving the annotated (oracle) script tag.
+  \item[A2$'$, predicted-script variant.] A2 with the oracle tag
+  replaced by the output of a lightweight script classifier trained
+  on the same split, quantifying robustness of any gain to imperfect
+  script identification.
+  \item[A3, naive conditioning.] The backbone without SCA modules,
+  with the one-hot script tag concatenated to the penultimate
+  features, in the spirit of simple feature-wise conditioning
+  \citep{perez2018film}. Separates the value of the script
+  \emph{information} from the value of the attention \emph{mechanism}
+  that uses it.
+  \item[A4, per-script experts.] Independent models trained on the
+  Urdu-only and English-only subsets (digits held aside), routed by
+  script at inference, testing whether a joint conditioned model
+  outperforms full separation.
+  \item[A5, identify-then-branch.] A two-stage pipeline in the
+  multi-script recognition style \citep{multrenets2020}: a script
+  classifier routes each image to a script-specific head over shared
+  frozen features, testing whether joint conditioning beats explicit
+  routing.
+\end{description}
+
+The primary matched pair is \textbf{A2 versus A1}: identical
+capacity, identical tuning, identical split, differing only in
+whether the gates see the script. The secondary pair is A2 versus A3.
+All remaining comparisons are reported as context.
+
+\subsection{Fair tuning protocol}
+
+Both arms of every reported pair receive the same hyperparameter
+search space, the same search budget, and the same model-selection
+rule, with selection performed exclusively on the validation
+partition. For the depth sweep, each arm reports its own
+best-validated insertion configuration; the comparison is therefore
+best-fair-configuration against best-fair-configuration rather than
+an arbitrary fixed setting, per the pre-specified design goal of
+giving a true effect its best honest chance without favoring either
+side. The full search grid, budgets, and selected configurations are
+released with the code. \todonote{Fix the concrete grid (learning
+rate, weight decay, embedding dim $d$, bottleneck ratio, epochs,
+early stopping) before implementation and freeze it in the repo
+before any test-set evaluation.}
+
+% ============================================================
+\section{Experimental Setup}
+\label{sec:setup}
+
+\subsection{Split and its honest scope}
+
+All experiments use a single fixed 80:10:10 train, validation, test
+partition at the image level, stratified jointly by class and script
+so that every partition preserves the class balance and script
+composition of the release. The partition is generated once with a
+recorded seed and reused unchanged by every arm; no arm ever sees a
+different split. Because the release contains no writer identifiers
+(Section~\ref{sec:data}), images from the same child may appear on
+both sides of the partition, and the site confound is present on both
+sides by construction. All absolute numbers in
+Section~\ref{sec:results} are therefore \emph{within-dataset}
+performance and are not generalization estimates; the quantity this
+paper is designed to measure is the paired difference between arms
+under identical conditions.
+
+\subsection{Repeated runs and a power-motivated repeat count}
+
+Every arm is trained under $S$ random seeds governing initialization
+and data ordering, with the split held fixed. The repeat count is
+chosen for sensitivity rather than convention: a pilot of five seeds
+on the primary pair (A2, A1) estimates the between-seed standard
+deviation of the paired accuracy difference, and $S$ is then set so
+that a paired test has approximately 80\% power to detect a
+pre-specified minimal effect of interest of 1.5 accuracy points,
+subject to a compute ceiling consistent with a single-GPU
+Colab/Kaggle budget \todonote{insert the pilot SD, the resulting
+$S$, and the ceiling actually used; pre-register the minimal effect
+of interest in the repo before the pilot}. Seeds are identical across
+arms so that differences are paired seed-by-seed.
+
+\subsection{Metrics and endpoints}
+
+For every arm we report accuracy, precision, recall, $F_1$, and AUC
+as mean $\pm$ standard deviation over seeds, pooled and broken out
+per script (Urdu, English, digits). Two co-primary endpoints are
+pre-specified: (i) the pooled A2$-$A1 accuracy difference and (ii)
+the Urdu-subset A2$-$A1 accuracy difference, reflecting the
+mechanism's prediction that gains concentrate in Urdu; a
+Holm correction is applied across these two endpoints. All other
+comparisons, including A2 versus A3, per-script breakdowns beyond the
+Urdu endpoint, depth-sweep observations, and A2$'$ robustness, are
+reported as exploratory and labeled as such. This pre-specification
+protects the analysis in both directions: a real Urdu-specific effect
+cannot be averaged away into a flat pooled number, and a spurious
+effect cannot be harvested from an unplanned subgroup.
+
+\subsection{Statistical analysis}
+
+Each co-primary endpoint is tested with a paired $t$-test across the
+$S$ seed-matched differences, accompanied by a Wilcoxon signed-rank
+test as a distribution-free check, the effect size (Cohen's $d_z$),
+and a 95\% confidence interval for the mean difference. With $n=852$
+images and image-level evaluation, intervals will be wide, and we
+report them as such; a null or negative result is reported with the
+same prominence as a positive one. No test-set evaluation occurs
+until the tuning grid, endpoints, and analysis plan are frozen in the
+repository.
+
+\subsection{Reproducibility}
+
+We release code, the fixed split indices, the script annotations,
+all configuration files, per-seed raw results, and the exact
+environment specification. Training uses TensorFlow/Keras to remain
+close to the source study's stack \todonote{confirm framework choice
+at implementation; if PyTorch is preferred for the SCA modules,
+state the deviation and re-run A0 in the same framework so the
+anchor stays internal}. Every number in Section~\ref{sec:results}
+must be traceable to a logged run artifact.
+
+% ============================================================
+\section{Results}
+\label{sec:results}
+\todonote{Pending. No numbers may be written here except from
+executed experiments supplied by the authors.}
+
+% ============================================================
+\section{Limitations}
+\label{sec:limitations}
+\todonote{Pending. Must include: within-dataset only; site/label
+confounds; construct validity of institutional labels; equal-
+separability assumption behind the matched-pair logic; no
+writer-level CV possible on released data.}
+
+% ============================================================
+\section{Future Work}
+\label{sec:future}
+\todonote{Pending. Parked list incl.\ multi-site collection with
+writer IDs, participant-wise CV, cross-dataset testing incl.\ the
+Kaggle English letter corpus, per-marker annotation, word/line-level
+samples, clinical-grade labels.}
+
+% ============================================================
+\section*{Declarations}
+\todonote{Required back matter: Data Availability, Ethics, CRediT
+author contributions, Conflicts of Interest, Funding, AI-use
+statement. Drafted at Stage 5.}
+
+\paragraph{Resource availability (links to be filled at submission).}
+Code, configuration files, the fixed split indices, the script
+annotation file, and per-seed raw results are available at
+\todonote{GitHub repository URL} and archived with a versioned DOI at
+\todonote{Zenodo DOI}. The handwriting dataset itself is available
+from its original source \citep{kashif2026} via the access route
+published there; we do not redistribute the images.
+
+\bibliography{ScriptAwareDyslexia_TBD_v1_2026-09}
+
+\end{document}

@@ -1,0 +1,81 @@
+unit_id,script,digit_glyph,ambiguous,note
+27,urdu,na,0,sheen
+604,urdu,na,0,be
+555,urdu,na,0,jeem/che heavy stroke
+251,urdu,na,0,seen/sheen
+264,urdu,na,0,meem
+64,urdu,na,0,se/be with dots in bowl
+476,urdu,na,0,jeem with dot
+211,digit,western,0,2
+313,urdu,na,0,waw small
+88,digit,western,0,3
+93,digit,western,0,8
+338,urdu,na,0,dal/re
+97,urdu,na,0,be with dot below
+244,urdu,na,0,dal/re
+286,urdu,na,0,pe/se with dots in bowl
+91,english,na,0,uppercase G
+508,urdu,na,0,sheen/be with dots
+95,urdu,na,1,bare vertical stroke; alif vs digit 1
+432,urdu,na,0,waw
+253,urdu,na,0,hey/suad ligature
+615,urdu,na,1,alif/laam; second faint stroke in frame
+304,urdu,na,0,ain rounded
+16,urdu,na,0,waw
+318,urdu,na,1,bare vertical stroke; alif vs digit 1
+218,digit,western,0,9
+554,urdu,na,0,se with three dots in bowl
+577,urdu,na,0,noon/he with dot inside
+343,urdu,na,0,zay
+29,urdu,na,0,khe with dot
+384,urdu,na,1,kaaf/gaaf ligature; extra marks in frame
+12,urdu,na,0,kaaf
+422,english,na,0,uppercase F
+446,english,na,0,uppercase U
+533,urdu,na,0,te/se with three dots
+569,english,na,1,lowercase b vs Urdu toe
+180,digit,western,0,1
+118,english,na,0,uppercase D
+589,digit,western,0,7
+169,digit,western,0,5
+11,urdu,na,0,kaaf
+360,urdu,na,1,loop with tail; waw vs digit 9
+504,urdu,na,1,small curl; hey vs digit 5
+415,digit,western,0,5
+42,urdu,na,0,fe
+96,urdu,na,1,small hooked form; kaaf/tay vs digit 7
+421,english,na,0,uppercase B
+488,urdu,na,0,suad/hey
+480,urdu,na,0,dal/re
+270,digit,western,1,closed circle; digit 0 vs Latin O
+603,digit,western,0,7
+607,urdu,na,0,toe in bowl
+538,urdu,na,0,zoe with dot
+600,digit,western,0,8
+609,urdu,na,0,jeem with dot
+79,urdu,na,1,loop with tail; waw vs digit 9
+456,digit,western,1,open-topped 8
+204,urdu,na,0,suad/hey small
+517,urdu,na,0,noon/be bowl
+578,urdu,na,0,waw
+94,digit,western,0,9
+194,digit,western,0,7
+85,digit,western,1,closed circle; digit 0 vs Latin O
+621,urdu,na,0,ain with loop
+72,urdu,na,0,zoe small
+349,urdu,na,0,zoe with dot
+214,digit,western,0,4
+344,urdu,na,0,zhe with three dots
+401,urdu,na,0,laam/kaaf ligature
+468,digit,western,0,9
+461,digit,western,0,5
+1,digit,western,0,5
+53,urdu,na,0,zuad with dot
+151,english,na,0,lowercase u
+172,digit,western,1,closed circle; digit 0 vs Latin O
+348,urdu,na,0,zuad
+491,urdu,na,0,toe small
+68,urdu,na,0,zay small
+290,urdu,na,0,khe with dot
+206,urdu,na,1,toe vs Latin b
+339,urdu,na,0,dal with toe above

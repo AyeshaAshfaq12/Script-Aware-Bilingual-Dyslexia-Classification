@@ -1,0 +1,81 @@
+unit_id,script,digit_glyph,ambiguous,note
+329,urdu,na,0,be with dot below
+140,english,na,0,lowercase a
+331,urdu,na,0,te/se with two circles in bowl
+496,urdu,na,0,ye/kaaf
+219,digit,western,0,8
+71,urdu,na,0,noon/laam bowl
+328,digit,western,1,angular 7 vs Urdu hooked form
+440,english,na,0,lowercase m
+61,urdu,na,0,pe with three dots below
+559,urdu,na,0,rre with toe above
+32,urdu,na,0,zay
+176,digit,western,0,5
+626,urdu,na,1,toe vs Latin b
+549,urdu,na,1,bare vertical stroke; alif vs digit 1
+182,digit,western,0,4
+418,digit,western,1,loosely drawn 8
+521,digit,western,1,1 with head serif vs Urdu alif
+210,urdu,na,1,bare vertical stroke; alif vs digit 1
+128,english,na,0,uppercase S
+148,urdu,na,1,bare vertical stroke; alif vs digit 1
+131,english,na,0,uppercase L
+225,urdu,na,0,jeem/che with dots
+295,urdu,na,0,zay/rre with toe
+465,digit,western,0,9
+330,urdu,na,0,se/be with three dots below
+436,english,na,0,lowercase f
+449,english,na,0,uppercase X
+19,urdu,na,0,be/noon curve
+530,urdu,na,0,khe/se with dots
+484,english,na,1,lowercase j vs Urdu zay
+539,english,na,1,lowercase b vs Urdu toe
+464,digit,western,0,8
+125,english,na,0,uppercase T
+386,urdu,na,0,toe above dal
+518,urdu,na,0,re/noon
+321,digit,western,0,4
+227,urdu,na,0,seen/sheen
+105,urdu,na,0,khe with dot
+230,urdu,na,0,kaaf/bari-ye ligature
+513,urdu,na,0,dal/dde
+634,urdu,na,1,small curled glyph; hey vs cursive 8
+405,urdu,na,0,noon in bowl
+69,urdu,na,0,rre/zay small
+166,digit,western,0,3
+310,urdu,na,0,laam
+252,urdu,na,1,multi-character ligature in frame
+232,urdu,na,0,kaaf/ye
+552,urdu,na,0,be/pe with dots
+376,urdu,na,0,be/noon bowl with mark
+189,digit,western,0,2
+507,urdu,na,0,toe ligature
+514,urdu,na,0,re/dal heavy curve
+298,urdu,na,0,seen
+361,digit,western,0,4
+363,urdu,na,0,hey with two circles below
+248,urdu,na,0,toe above laam
+37,urdu,na,0,toe/zoe
+21,urdu,na,0,alif with madda
+202,urdu,na,1,several characters in frame
+294,urdu,na,0,re/dal
+591,digit,western,0,9
+548,digit,western,1,closed circle; digit 0 vs Latin O
+229,urdu,na,0,kaaf/bari-ye
+179,digit,western,0,8
+473,urdu,na,0,sheen/be with dots
+417,digit,western,0,7 with crossbar
+106,digit,western,1,angular form; digit 7 vs Latin Z
+254,urdu,na,0,suad/hey ligature
+34,urdu,na,0,zoe above zay
+161,english,na,0,lowercase h
+300,urdu,na,0,hey/suad
+212,digit,western,0,3
+398,urdu,na,0,ain/ghain
+570,urdu,na,0,zoe with dot
+447,english,na,0,uppercase V
+443,english,na,1,lowercase r vs eastern Arabic-Indic 2 glyph
+301,urdu,na,0,qaaf/fe
+56,urdu,na,0,ain
+256,urdu,na,0,zoe
+278,urdu,na,0,hey/suad large

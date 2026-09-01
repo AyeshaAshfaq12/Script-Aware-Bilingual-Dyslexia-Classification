@@ -1,0 +1,81 @@
+unit_id,script,digit_glyph,ambiguous,note
+279,digit,western,0,9
+493,urdu,na,0,qaaf
+495,urdu,na,0,qaaf
+409,urdu,na,0,be/pe with dots
+590,digit,western,0,8
+98,urdu,na,0,be/pe with dots in bowl
+51,urdu,na,0,sheen/se
+581,urdu,na,0,kaaf/ye
+260,urdu,na,0,qaaf/hey
+200,urdu,na,0,be
+314,urdu,na,0,waw/hey
+372,digit,western,0,8
+388,urdu,na,0,zay
+352,urdu,na,0,khe/hey with dot
+561,urdu,na,0,rre with toe
+249,urdu,na,0,zal/zay
+54,urdu,na,0,toe
+92,digit,western,0,7 with crossbar
+55,urdu,na,0,zoe with dot
+123,english,na,0,uppercase Z
+462,digit,western,0,6
+520,urdu,na,0,noon/be with dot
+439,english,na,0,lowercase n
+359,urdu,na,0,he with dot inside
+535,urdu,na,0,te/se with dots
+207,urdu,na,0,kaaf/bari-ye small
+3,digit,western,0,6
+605,urdu,na,0,sheen/be in bowl
+420,english,na,0,uppercase A
+452,digit,western,1,closed circle; digit 0 vs Latin o
+117,english,na,0,uppercase C
+375,urdu,na,1,hooked form; Urdu tay vs Latin Y vs digit 7
+622,urdu,na,0,noon-ghunna/ain
+575,urdu,na,0,laam/noon bowl
+164,english,na,0,uppercase V
+130,english,na,0,uppercase W
+184,digit,western,0,5
+236,urdu,na,0,se/be bowl with dots
+320,digit,western,0,3
+511,urdu,na,1,looped form with dot; hey vs cursive 8
+57,urdu,na,0,khe/ghain with dot
+47,urdu,na,0,waw small
+217,digit,western,0,8
+121,english,na,0,uppercase P
+444,digit,western,1,digit 5 vs Latin S
+588,digit,western,0,6
+523,urdu,na,0,te/be bowl with dots
+378,urdu,na,0,be/noon bowl
+580,digit,western,0,4
+356,urdu,na,0,se/te bowl with three strokes
+367,digit,western,0,3
+277,digit,western,0,7
+524,urdu,na,0,pe/be with dots
+284,urdu,na,0,sheen/be bowl
+540,urdu,na,0,hey/suad large
+445,english,na,0,uppercase T
+377,urdu,na,0,be/te bowl with dots
+366,digit,western,0,2
+46,urdu,na,0,noon/he with dot inside
+143,english,na,0,lowercase e
+428,english,na,0,lowercase a
+70,urdu,na,1,several characters in frame
+593,urdu,na,1,bare vertical stroke; alif vs digit 1
+132,english,na,0,uppercase R
+531,urdu,na,0,seen/sheen
+103,urdu,na,0,jeem/che with dot
+259,urdu,na,0,qaaf/fe
+7,digit,western,0,3
+618,urdu,na,0,te/tay with dots
+62,urdu,na,0,te/be bowl with dots
+457,english,na,0,uppercase E
+120,english,na,0,uppercase J
+235,urdu,na,0,be/noon bowl with dots
+102,urdu,na,0,jeem/che
+324,digit,western,0,7
+394,urdu,na,0,qaaf/hey
+380,urdu,na,0,sheen/se
+36,urdu,na,0,zuad ligature
+369,digit,western,0,5
+620,urdu,na,0,se/sheen

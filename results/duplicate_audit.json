@@ -1,0 +1,32 @@
+{
+  "files_total": 852,
+  "files_per_class": {
+    "Yes": 426,
+    "No": 426
+  },
+  "distinct_images_by_sha256": 638,
+  "redundant_copies": 214,
+  "duplicate_groups": 147,
+  "duplicate_group_size_hist": {
+    "2": 82,
+    "3": 63,
+    "4": 2
+  },
+  "cross_class_groups": 20,
+  "within_class_groups": 127,
+  "within_class_groups_by_folder": {
+    "No": 127
+  },
+  "distinct_content_yes_only": 406,
+  "distinct_content_no_only": 212,
+  "distinct_content_both_classes": 20,
+  "distinct_per_class_folder": {
+    "Yes": 426,
+    "No": 232
+  },
+  "deduplicated_corpus_excluding_contradictions": {
+    "yes": 406,
+    "no": 212,
+    "total": 618
+  }
+}
