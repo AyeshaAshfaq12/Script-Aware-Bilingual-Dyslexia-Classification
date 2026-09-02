@@ -287,3 +287,72 @@ The likely outcome is a **null that cannot distinguish "no effect" from
 here before the test results exist so it cannot be reframed afterwards.
 It is a genuine finding about the limits of this dataset, and hard rule
 6 requires reporting it with the same prominence as a positive result.
+
+---
+
+## 11. Moving to another machine
+
+**Cloning the repo is not sufficient.** The code is fully portable —
+`corpus_v1.csv` stores relative uids (`No/1 (1).jpeg`), `data.py`
+resolves paths from the repo root at runtime, and a normal `git clone`
+brings the `freeze-v1` tag so the hard-rule-1 gate keeps working — but
+four directories are deliberately gitignored.
+
+| Directory | Size | Needed? | How to restore |
+|---|---|---|---|
+| `data/raw/` | 57 MB | **MANDATORY** | re-download from the Drive link in README; **never** committed (hard rule 7) |
+| `runs/` | **837 MB** | **YES — see the trap below** | copy across, or archive to Drive/Zenodo |
+| `data/annotations/contact_sheets/` | 40 MB | no | regenerate: `python src/make_contact_sheets.py` |
+| `Related_Research_Work/` | 64 MB | no | source PDF + archive; reference only |
+
+### Setup on the new machine
+
+```bash
+git clone https://github.com/AyeshaAshfaq12/Script-Aware-Bilingual-Dyslexia-Classification.git
+cd Script-Aware-Bilingual-Dyslexia-Classification
+pip install -r requirements.txt          # TF 2.20.0, Python 3.9-3.13
+
+# restore the images into data/raw/{Yes,No}, then VERIFY them:
+python src/verify_data.py
+```
+
+`verify_data.py` re-checks all 852 files against the **committed**
+`data/raw/checksums.csv` (SHA-256 per file), so a corrupted or wrong
+download is caught immediately rather than silently changing results.
+Confirm the freeze tag survived the clone:
+
+```bash
+git tag --list freeze-v1     # must print freeze-v1
+```
+
+If it does not (e.g. a shallow clone), `train.py` will refuse every
+test-partition run — which is the gate behaving correctly, not a bug.
+
+### ⚠️ The `runs/` trap
+
+`results/all_runs.csv` **is** tracked, so every resumable runner will
+**skip** all completed runs on the new machine. But their per-run
+artifacts live in `runs/` and are **not** in the repo. Skipped runs are
+never regenerated, so you would end up with results rows whose
+underlying artifacts are missing. That breaks:
+
+- guide §9's requirement that per-image test predictions be saved per run,
+- `fig_training_curves.pdf`, which reads `runs/*/history.csv`,
+- `fig_attention_maps.pdf`, which needs the saved suffix weights,
+- the Phase 11 handoff package.
+
+Three ways out, best first:
+
+1. **Copy `runs/` across** (837 MB, USB or cloud). Cleanest, loses
+   nothing. This is what the guide intends — its layout comment reads
+   `runs/ # one folder per run (gitignored, archived)`.
+2. **Archive `runs/` to Drive/Zenodo** and pull it on the new machine.
+   Same effect, and it is needed for release anyway.
+3. **Re-run from scratch.** Delete the affected rows from
+   `results/all_runs.csv` and re-run. Runs are deterministic — verified
+   bit-identical across separate processes (D-008) — so results
+   reproduce exactly, but you pay the full recompute (~6 h of tuning
+   plus whatever finals are done).
+
+**If you are mid-Phase-8, copy `runs/` — do not restart.** Rerunning
+would reproduce the same numbers, but it would waste hours for nothing.
