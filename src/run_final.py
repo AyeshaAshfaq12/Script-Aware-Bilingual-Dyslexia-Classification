@@ -34,6 +34,7 @@ import numpy as np
 import yaml
 
 import models
+from run_tuning import RunnerLock
 from evaluate import compute_metrics, script_classifier_metrics
 from train import (FeatureCache, RunSpec, already_done, append_row,
                    assert_may_touch_test, env_string, freeze_tag_exists,
@@ -210,7 +211,8 @@ def main() -> int:
     cache = FeatureCache()
     pair = sel["primary_pair"]["arms"]
 
-    for arm in a.arms:
+    with RunnerLock():
+      for arm in a.arms:
         print(f"\n[{arm}]")
         if arm in ("A1", "A2"):
             spec = spec_from(pair[arm], grid)
@@ -240,9 +242,9 @@ def main() -> int:
                 run_a4(s, grid, sel, cache, a.partition)
         else:
             raise SystemExit(f"unknown arm '{arm}'")
-    print(f"\nlog: results/all_runs.csv")
-    return 0
+      print(f"\nlog: results/all_runs.csv")
+      return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+      raise SystemExit(main())
