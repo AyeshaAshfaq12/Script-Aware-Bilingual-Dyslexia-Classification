@@ -1,11 +1,9 @@
 # Co-primary endpoints and analysis plan — guide sections 7, 8, 10.
 #
-# STATUS: S is not yet computed; it comes from the Phase 6 pilot.
-# This file is frozen at Phase 7 by `git tag freeze-v1`, before any
-# test-set evaluation (hard rule 1).
+# STATUS: FROZEN at Phase 7 (git tag freeze-v1). Do not edit.
 
 version: 1
-frozen: false
+frozen: true
 
 corpus:
   primary: "618 deduplicated images (406 dyslexic / 212 non-dyslexic)"
@@ -43,11 +41,43 @@ effect:
 
 repeats:
   pilot_seeds: [201, 202, 203, 204, 205]
-  sd_pilot: null            # filled by Phase 6
-  S: null                   # filled by Phase 6
+  sd_pilot: 0.073560        # Phase 6, val, matched-depth pair
+  S: 30                    # Phase 6 result after the ceiling was applied
   S_floor: 10
   S_ceiling: 30
-  final_seeds: null         # 301..(300+S), identical across all arms
+  S_unclamped: 232          # what 80% power would require
+  clamp_applied: ceiling
+  final_seeds: [301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330]
+
+# ------------------------------------------------------------------
+# POWER: recorded honestly, per guide section 7 step 4 and hard rule 6.
+# ------------------------------------------------------------------
+power_actually_achieved:
+  achieved_power_at_S: 0.1210
+  target_power: 0.80
+  detectable_delta_at_S: 0.0433   # 4.33 accuracy points at 80% power
+  test_partition_size: 62
+  one_image_in_accuracy_points: 0.0161
+  statement: >
+    The pilot gives sd_pilot = 0.0736 for the seed-paired
+    A2-A1 validation accuracy difference. Detecting the pre-specified
+    delta_min of 0.015 at 80% power would require S = 232
+    seeds. The guide's ceiling of 30 binds, so S = 30, at which the
+    achieved power for a 1.5-point effect is only
+    0.121. At S = 30 the design can detect
+    about 4.33 accuracy points at 80% power.
+    A further constraint is arithmetic: the test partition holds 62
+    images, so a single image is worth 1.61 accuracy points and the
+    1.5-point target lies BELOW the resolution of a single-seed
+    measurement. Averaging over seeds refines the mean but does not
+    reduce the seed-to-seed noise that drives power.
+    Consequence for interpretation, fixed here before any test-set
+    evaluation: the co-primary tests are run exactly as pre-registered,
+    but a null result must NOT be read as evidence that script
+    conditioning does not help. It is only evidence that no effect
+    larger than roughly 4 accuracy points was detected. The confidence
+    interval, not the p-value, carries the informative content, and the
+    Limitations section must say so.
 
 statistics:
   primary_test: "scipy.stats.ttest_rel on the S seed-paired differences"

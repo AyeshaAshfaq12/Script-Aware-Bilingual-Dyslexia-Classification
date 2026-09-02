@@ -153,3 +153,102 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
   absolute accuracy so the numbers are read correctly. The paired A2-A1
   contrast is unaffected either way, since both arms see the identical
   split.
+
+---
+
+## D-006 — Primary A2-vs-A1 comparison fixed at a matched insertion depth
+
+- **Date:** 2026-09-02
+- **Guide clause:** §6 — "A1 and A2 sweep depth_config identically; each
+  reports its own best fair configuration, per the paper."
+- **Status:** ACCEPTED (decided before the Phase 7 freeze; no test data
+  had been touched).
+- **Deviation:** The co-primary comparison is run at a single common
+  insertion depth (`mid`) for both arms, rather than at each arm's own
+  best depth. Each arm still selects its own optimizer and learning rate
+  inside that depth, so the tuning budget and search space remain equal.
+- **Reason:** Selection on validation chose different depths for the two
+  arms — A1 (the control) chose `all`, A2 chose `mid`. That leaves the
+  compared models with different capacities:
+
+  | arm | depth | n_params |
+  |---|---|---|
+  | A1 (control) | all | 9,821,161 |
+  | A2 (treatment) | mid | 9,685,537 |
+
+  a 135,624-parameter gap (1.40%) **in the control's favour**. The
+  paper's central design claim is that A1 and A2 have identical capacity
+  and differ only in whether the attention gates see the script. Running
+  the primary endpoint on models of unequal size would contradict that
+  claim in the one comparison the paper rests on.
+- **Why `mid`:** it is A2's best depth *and* tied-best for A1 (A1 scores
+  0.8065 at both `mid` and `all`), so neither arm is handicapped by the
+  choice. At `mid` both arms have exactly 9,685,537 parameters.
+- **Impact on the claim:** This does not change the observed effect.
+  The validation A2-A1 delta is **-0.0054 either way**, because A1's
+  best score is identical at `mid` and `all`. The choice therefore
+  affects the integrity of the capacity-matching claim, not the number,
+  and it was made before any test-set evaluation. The guide's
+  each-arm-own-best comparison is retained and reported as an
+  exploratory sensitivity analysis in
+  `results/selected_configs.json -> secondary_pair_each_arm_own_best`.
+- **Resolution:** ACCEPTED. `results/selected_configs.json` records both
+  the matched-depth primary pair and the each-arm-own-best secondary
+  pair. The paper must state that the primary comparison is at a fixed
+  common depth, with the full depth sweep reported separately.
+
+---
+
+## D-007 — A0 CNN-from-scratch trains end to end and is far slower
+
+- **Date:** 2026-09-02
+- **Guide clause:** §5.3 — A0 re-runs include CNN-from-scratch.
+- **Status:** RESOLVED (informational; no change to the protocol).
+- **Finding:** Every other arm uses a frozen backbone, so its frozen
+  prefix is cached and only the trainable suffix is fitted. The
+  CNN-from-scratch baseline has no frozen part, so it trains end to end
+  on raw images and cannot use that path. Measured: **23.8 min for one
+  run** (50 epochs, no early stop) versus ~30 s for a cached A0 run.
+  Nine cnn_scratch runs cost ~3.6 h, which is most of the A0_others
+  budget.
+- **Impact on the claim:** None. It is a supporting baseline, not part
+  of the co-primary comparison, and it runs under the same split, seeds
+  and protocol as every other arm.
+- **Resolution:** Run as specified. A bug that assumed every arm has a
+  cacheable prefix was fixed in `src/train.py` (it now fits the full
+  model on images when there is no frozen prefix).
+
+---
+
+## D-008 — Duplicate rows from two concurrent tuning runners
+
+- **Date:** 2026-09-02
+- **Guide clause:** §9 — `results/all_runs.csv` is the append-only
+  master log, one row per run.
+- **Status:** RESOLVED.
+- **What happened:** An A5 tuning sweep was launched twice. The first
+  launch was believed dead but was still alive, so two runner processes
+  overlapped. Each checks `already_done()` before starting a run, and
+  neither had logged yet, so both trained and logged the same
+  `(config, seed)` pairs. **9 duplicate rows** resulted, across 8
+  distinct keys.
+- **Integrity check before removing anything:** every duplicated
+  `(phase, arm, config_hash, seed)` key was compared. All 8 pairs are
+  **bit-identical** — same accuracy to six decimals and the same epoch
+  count. This is an unplanned but genuine confirmation of the
+  determinism requirement in guide §5.4 check 4: the same seed run twice
+  in separate processes gives exactly the same result.
+- **Impact on the claim:** None. No run's result changed; only the row
+  counts were inflated. The affected arm (A5) is a context arm, not part
+  of the co-primary comparison.
+- **Resolution:**
+  1. The raw log was preserved verbatim as
+     `results/all_runs_raw_with_duplicates.csv`.
+  2. `results/all_runs.csv` was deduplicated on
+     `(phase, arm, config_hash, seed)`, keeping the first occurrence:
+     222 rows -> 213 unique.
+  3. `src/run_tuning.py` now takes an exclusive lock
+     (`runs/.runner.lock`) for the duration of a sweep, so a second
+     runner exits immediately with an explanatory message instead of
+     silently duplicating work. The lock is released through a `with`
+     block, so it survives exceptions and early exits.

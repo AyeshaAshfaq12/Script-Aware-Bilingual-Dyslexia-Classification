@@ -227,8 +227,16 @@ def run(spec: RunSpec, seed: int, phase: str,
 
     tr = cache.records(spec, "train")
     ev = cache.records(spec, eval_partition)
-    Ftr = cache.features(spec, "train", prefix)
-    Fev = cache.features(spec, eval_partition, prefix)
+    if prefix is None:
+        # No frozen prefix: CNN-from-scratch trains end to end, so there
+        # is nothing cacheable and the full model is fitted on images.
+        model = full
+        Xtr = cache.images(spec, "train")
+        Xev = cache.images(spec, eval_partition)
+    else:
+        model = suffix
+        Xtr = cache.features(spec, "train", prefix)
+        Xev = cache.features(spec, eval_partition, prefix)
     ytr = np.array([r["label"] for r in tr], dtype="float32")
     yev = np.array([r["label"] for r in ev], dtype="float32")
     str_ = np.array([r["script_id"] for r in tr], dtype="int32")
@@ -239,18 +247,18 @@ def run(spec: RunSpec, seed: int, phase: str,
         str_ = script_ids_override["train"]
         sev = script_ids_override[eval_partition]
 
-    suffix.compile(optimizer=make_optimizer(spec),
-                   loss="binary_crossentropy", metrics=["accuracy"])
+    model.compile(optimizer=make_optimizer(spec),
+                  loss="binary_crossentropy", metrics=["accuracy"])
     es = keras.callbacks.EarlyStopping(
         monitor="val_loss", patience=spec.patience,
         restore_best_weights=True)
-    hist = suffix.fit([Ftr, str_], ytr,
-                      validation_data=([Fev, sev], yev),
-                      epochs=spec.max_epochs, batch_size=spec.batch_size,
-                      callbacks=[es], verbose=0, shuffle=True)
+    hist = model.fit([Xtr, str_], ytr,
+                     validation_data=([Xev, sev], yev),
+                     epochs=spec.max_epochs, batch_size=spec.batch_size,
+                     callbacks=[es], verbose=0, shuffle=True)
 
-    y_prob = suffix.predict([Fev, sev], batch_size=spec.batch_size,
-                            verbose=0).ravel()
+    y_prob = model.predict([Xev, sev], batch_size=spec.batch_size,
+                           verbose=0).ravel()
     m = compute_metrics(yev, y_prob, [r["script"] for r in ev])
     counts = models.param_counts(full)
     runtime = time.time() - t0
@@ -278,7 +286,8 @@ def run(spec: RunSpec, seed: int, phase: str,
             w.writerow([r["uid"], int(yt), f"{yp:.6f}", r["script"],
                         eval_partition])
     if save_weights:
-        suffix.save_weights(rd / "suffix.weights.h5")
+        model.save_weights(rd / ("full.weights.h5" if prefix is None
+                                 else "suffix.weights.h5"))
 
     row = {
         "phase": phase, "arm": arm_tag, "config_hash": chash, "seed": seed,
@@ -301,3 +310,49 @@ def run(spec: RunSpec, seed: int, phase: str,
           f"seed={seed} ep={epochs_run:2d} "
           f"{eval_partition}_acc={m['acc']:.4f} ({runtime:.0f}s)")
     return row
+
+
+# ------------------------------------------------- script classifier
+def train_script_classifier(seed: int, cache: FeatureCache,
+                            corpus: str = "primary",
+                            partitions: tuple[str, ...] = ("train", "val"),
+                            batch_size: int = 16, max_epochs: int = 50,
+                            patience: int = 5, lr: float = 1e-3) -> dict:
+    """Frozen-backbone features + Dense(3, softmax), per guide 5.3.
+
+    Used by A2' (predicted script ids replace the oracle) and by A5
+    (routing to script-specific heads). Trained on the train partition
+    only; returns predicted ids for each requested partition plus the
+    classifier's own accuracy, which the paper reports.
+    """
+    keras.utils.set_random_seed(seed)
+    probe = RunSpec(arm="script_clf", corpus=corpus, batch_size=batch_size)
+    prefix, suffix, _ = models.build_split("script_clf", weights="imagenet")
+
+    tr = cache.records(probe, "train")
+    Ftr = cache.features(probe, "train", prefix)
+    ytr = np.array([r["script_id"] for r in tr], dtype="int32")
+
+    suffix.compile(optimizer=keras.optimizers.Adam(lr),
+                   loss="sparse_categorical_crossentropy",
+                   metrics=["accuracy"])
+    # early stopping needs a held-out signal; use the train split's own
+    # validation partition, which is legal (no test data involved)
+    va = cache.records(probe, "val")
+    Fva = cache.features(probe, "val", prefix)
+    yva = np.array([r["script_id"] for r in va], dtype="int32")
+    suffix.fit(Ftr, ytr, validation_data=(Fva, yva), epochs=max_epochs,
+               batch_size=batch_size, verbose=0, shuffle=True,
+               callbacks=[keras.callbacks.EarlyStopping(
+                   monitor="val_loss", patience=patience,
+                   restore_best_weights=True)])
+
+    out: dict = {"predicted": {}, "accuracy": {}}
+    for part in partitions:
+        recs = cache.records(probe, part)
+        F = cache.features(probe, part, prefix)
+        pred = suffix.predict(F, batch_size=batch_size, verbose=0).argmax(1)
+        true = np.array([r["script_id"] for r in recs], dtype="int32")
+        out["predicted"][part] = pred.astype("int32")
+        out["accuracy"][part] = float((pred == true).mean())
+    return out

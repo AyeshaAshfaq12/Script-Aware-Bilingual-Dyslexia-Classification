@@ -103,14 +103,54 @@ pip install -r requirements.txt
 
 ## Reproducing
 
-| Artifact | Command |
+Every table and figure is generated from artifacts on disk. No number is
+hand-entered.
+
+| Stage | Command |
 |---|---|
 | Phase 1 gate, manifest, checksums | `python src/verify_data.py` |
 | Duplicate audit | `python src/audit_duplicates.py` |
-| Corpus definitions | `python src/build_corpus.py` |
+| Corpus definitions (618 / 852) | `python src/build_corpus.py` |
+| Script-tag agreement + adjudication | `python src/agreement.py --stage final --policy annotator_b` |
+| Fixed split (generated once) | `python src/make_split.py` |
+| Smoke tests | `python -m pytest tests/ -q` |
+| Phase 5 tuning sweep | `python src/run_tuning.py --arms A1 A2` |
+| | `python src/run_tuning.py --arms A3 A0 A5` |
+| | `python src/run_tuning.py --arms A0_others` |
+| Phase 5 config selection | `python src/select_configs.py` |
+| Phase 6 pilot + power | `python src/run_pilot.py` |
+| Phase 8 final runs (post-freeze) | `python src/run_final.py --arms A1 A2 A0 A3` |
+| | `python src/run_final.py --arms A5 A2p A4` |
+| Phase 9 statistics | `python src/stats.py` |
+| Phase 10 figures and tables | `python src/figures.py` |
 
-*(Remaining commands are added as each phase completes; per guide §13
-every table and figure must be reproducible with one command.)*
+All runners are **resumable**: each finished run is appended to
+`results/all_runs.csv` and skipped on re-invocation, so a sweep can be
+interrupted and continued.
+
+## Key design decisions
+
+| Decision | Where recorded |
+|---|---|
+| Deduplicated 618-image primary corpus | `DEVIATIONS.md` D-004 |
+| Accuracy endpoints kept despite 406/212 imbalance | `DEVIATIONS.md` D-005 |
+| Primary A2-vs-A1 pair at a **matched insertion depth** | `DEVIATIONS.md` D-006 |
+| CNN-from-scratch trains end to end (no cacheable prefix) | `DEVIATIONS.md` D-007 |
+| Tuning grid trimmed before the freeze (depth sweep kept) | `configs/grid.yaml` |
+| S = 30 with the achieved power recorded honestly | `configs/endpoints.yaml` |
+
+### Compute
+
+All experiments run on a local CPU (Intel i7-6600U, 2 cores). This costs
+no result quality — the computation is identical, so hardware changes
+wall-clock time only — and CPU is preferable here because
+`enable_op_determinism()` is fully reliable on CPU and unavailable for
+several GPU kernels.
+
+Because the backbone is frozen and no augmentation is used, each arm's
+frozen prefix is cached and only the trainable suffix is fitted. That is
+**exactly equivalent** to end-to-end training and is asserted
+bit-for-bit in `tests/test_smoke.py::TestSplitEquivalence`.
 
 ## Reproducibility commitments
 

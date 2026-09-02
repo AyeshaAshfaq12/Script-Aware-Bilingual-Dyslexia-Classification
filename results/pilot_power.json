@@ -1,0 +1,41 @@
+{
+  "pilot_seeds": [
+    201,
+    202,
+    203,
+    204,
+    205
+  ],
+  "a1_val_acc": [
+    0.790323,
+    0.774194,
+    0.725806,
+    0.790323,
+    0.725806
+  ],
+  "a2_val_acc": [
+    0.774194,
+    0.741935,
+    0.709677,
+    0.83871,
+    0.870968
+  ],
+  "paired_differences": [
+    -0.01612899999999995,
+    -0.03225900000000004,
+    -0.01612899999999995,
+    0.04838699999999996,
+    0.145162
+  ],
+  "mean_difference": 0.025806400000000007,
+  "sd_pilot": 0.07356016070401152,
+  "delta_min": 0.015,
+  "alpha_per_endpoint": 0.025,
+  "target_power": 0.8,
+  "S_unclamped": 232.0,
+  "S_applied": 30,
+  "clamp_applied": "ceiling",
+  "achieved_power_at_S": 0.12102095588141552,
+  "partition": "val",
+  "note": "Pilot uses the validation partition only. S is applied identically to every arm in Phase 8."
+}

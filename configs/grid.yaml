@@ -5,11 +5,11 @@
 # authors approved on 2026-09-02, together with the measurements that
 # motivated it, so the decision is auditable.
 #
-# STATUS: amended, not yet frozen. Frozen at Phase 7 by `git tag freeze-v1`.
+# STATUS: FROZEN at Phase 7 (git tag freeze-v1). Do not edit.
 
 version: 1
 amended_utc: "2026-09-02"
-frozen: false
+frozen: true
 
 # ---------------------------------------------------------------- axes
 common:

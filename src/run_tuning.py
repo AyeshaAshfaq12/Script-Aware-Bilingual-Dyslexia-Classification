@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import itertools
+import os
 import time
 from pathlib import Path
 
@@ -108,6 +109,34 @@ def group_key(spec: RunSpec):
             spec.train_subset)
 
 
+class RunnerLock:
+    """Prevent two runners writing all_runs.csv at once.
+
+    Concurrent runners each pass their own `already_done` check before
+    either has logged, so the same (config, seed) is trained twice and
+    logged twice. Harmless to the science -- reruns are bit-identical --
+    but it corrupts the run counts, so it is blocked outright.
+    """
+
+    def __init__(self) -> None:
+        self.path = REPO / "runs" / ".runner.lock"
+
+    def __enter__(self):
+        self.path.parent.mkdir(exist_ok=True)
+        try:
+            self.fd = os.open(self.path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError:
+            raise SystemExit(
+                f"another runner holds {self.path}. Wait for it to finish, "
+                f"or delete the file if no runner is alive.")
+        os.write(self.fd, str(os.getpid()).encode())
+        return self
+
+    def __exit__(self, *exc):
+        os.close(self.fd)
+        self.path.unlink(missing_ok=True)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--arms", nargs="+", default=["A1", "A2"],
@@ -144,6 +173,7 @@ def main() -> int:
     todo.sort(key=lambda t: (group_key(t[0]), t[0].optimizer, t[0].lr, t[1]))
     cache, current, t_start = FeatureCache(), None, time.time()
     done = 0
+    lock = RunnerLock().__enter__()
     for spec, seed in todo:
         k = group_key(spec)
         if k != current:
