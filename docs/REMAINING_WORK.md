@@ -19,148 +19,60 @@ estimates, blockers, and who owns each item.
 | 2 Script annotation (κ = 0.8489) | ✅ done |
 | 3 Fixed split (seed 1337) | ✅ done |
 | 4 Models + smoke tests (58 pass) | ✅ done |
-| 5 Tuning + selection (218 runs) | ✅ done |
+| 5 Tuning + selection (252 runs incl. A0_others 45/45) | ✅ done |
 | 6 Pilot + power (S = 30) | ✅ done |
 | 7 **FREEZE** (`freeze-v1`) | ✅ done |
-| 8 Final runs | 🔄 **in progress** — 11/210 |
-| 9 Statistics | ⏳ blocked on 8 |
-| 10 Figures + tables | ⏳ partly blocked on 8 and 9 |
-| 11 Handoff package | ⏳ blocked on 9, 10 |
-| 12 Release (Zenodo, links) | ⏳ authors |
+| 8 Final runs | ✅ done — 210/210, all 7 arms × 30 seeds |
+| 9 Statistics | ✅ done — both co-primary endpoints null |
+| 10 Figures + tables | ✅ done — 5 figures, 2 tables |
+| 11 Handoff package | ⏳ remaining |
+| 12 Release (Zenodo, links) | ⏳ authors (needs LICENSE) |
 
-**Total remaining compute: ≈ 9 h** on the local CPU
-(Intel i7-6600U, 2 cores), before thermal throttling.
-
----
-
-## 2. Phase 8 — Final runs (IN PROGRESS)
-
-Seeds **301–330** (S = 30), identical across all arms, evaluated on the
-**test** partition. Permitted only because `freeze-v1` exists.
-
-### 2.1 Core arms — running now
-
-```bash
-cd src
-python run_final.py --arms A1 A2 A0 A3 --partition test
-```
-
-| arm | done | per run | remaining |
-|---|---|---|---|
-| A1 | 11/30 | 138 s | ~45 min |
-| A2 | 0/30 | 138 s | ~69 min |
-| A0 | 0/30 | ~30 s | ~15 min |
-| A3 | 0/30 | ~30 s | ~15 min |
-
-**≈ 2.4 h remaining.** Resumable — interrupt and re-run the same command.
-
-### 2.2 Context arms — not started
-
-```bash
-python run_final.py --arms A5 A2p A4 --partition test
-```
-
-| arm | what it does | estimate |
-|---|---|---|
-| A5 | script classifier routes to three script-specific heads | ~20 min |
-| A2p | A2 with **predicted** script ids (classifier trained per seed) | ~80 min |
-| A4 | per-script experts (Urdu / English), routed at inference | ~35 min |
-
-**≈ 2.3 h.**
-
-> ⚠️ **Risk to check first.** The A5 / A2′ / A4 code paths are written
-> and parse, but have **never been executed**. Run one seed before
-> committing to all 30:
-> ```bash
-> python -c "
-> import run_final, sys
-> sys.argv = ['x','--arms','A5','--partition','test']
-> run_final.main()" 2>&1 | head -20
-> ```
-> Specifically worth verifying: A4's digit routing (all digits are
-> Western numerals, so they route to the English expert, and must be
-> reported separately per guide §5.3), and that A2′ logs under
-> `A2_mid_predicted` so `base_arm()` maps it to `A2p` rather than
-> merging it into the co-primary arm.
-
-### 2.3 A0 supporting backbones — 44 runs outstanding
-
-```bash
-python run_tuning.py --arms A0_others
-```
-
-Re-runs of the source study's other backbones under our fixed split, at
-each one's best optimizer from Kashif et al. Table 3.
-
-| backbone | runs | note |
-|---|---|---|
-| cnn_scratch | 1/9 done | **23.8 min each** — trains end to end, no cacheable prefix (D-007) |
-| vgg16 | 0/9 | slow feature extraction, then fast heads |
-| inceptionv3 | 0/9 | as above |
-| mobilenetv2 | 0/9 | fast |
-| mobilenetv3small | 0/9 | fast |
-
-**≈ 3.9 h, dominated by CNN-from-scratch.** These are validation-phase
-supporting re-runs (3 seeds), not the S-seed test protocol, and must be
-reported in a **separate supporting table** labelled as such — not in
-`tab_main.tex`.
+**Total remaining compute: none.** All 472 runs are logged. Phases 11
+and 12 are documentation and release steps only.
 
 ---
 
-## 3. Phase 9 — Statistics
+## 2-4. Phases 8, 9 and 10 — COMPLETE (2026-09-03)
+
+All compute is finished. 472 rows in `results/all_runs.csv`
+(252 tuning, 10 pilot, 210 final). Nothing here remains to run; the
+commands are kept so the work can be reproduced.
 
 ```bash
-python src/stats.py
+python src/run_final.py --arms A1 A2 A0 A3 --partition test   # done
+python src/run_final.py --arms A5 A2p A4 --partition test     # done
+python src/run_tuning.py --arms A0_others                     # done, 45/45
+python src/stats.py                                           # done
+python src/attention_probe.py                                 # done
+python src/a0_table.py                                        # done
+python src/figures.py                                         # done
 ```
 
-Blocked until A1 and A2 finals are complete. Produces
-`results/stats_summary.json` and `results/stats_summary.md`.
+**Phase 8** — all 7 arms at 30/30 on the test partition. Details and
+the exploratory observations are in
+`docs/phase_records/phase08_final_runs.md`.
 
-Runs: paired *t*-test (primary), Wilcoxon (robustness), Cohen's *d_z*,
-95% CI, and **Holm across the two co-primary endpoints** (pooled delta,
-Urdu-subset delta). Everything else is emitted as exploratory with no
-significance claim.
+**Phase 9** — **both co-primary endpoints are null.** Pooled A2−A1
++0.0075, 95% CI [−0.0174, +0.0325], p = 0.542. Urdu-subset +0.0008,
+95% CI [−0.0216, +0.0232], p = 0.944. Neither survives Holm; Wilcoxon
+agrees with the t-test on both. Reported under the interpretation rule
+fixed in `endpoints.yaml` before unblinding: the CI carries the content,
+not the p-value, and a null is evidence only that no effect above
+~4 points was detected. See `docs/phase_records/phase09_statistics.md`.
 
-**Reporting obligation fixed before unblinding** (`endpoints.yaml`):
-achieved power is **0.121** for the pre-specified 1.5-point effect, and
-the design detects ~4.33 points at 80% power. A null must be reported
-as *"no effect larger than ~4 points was detected"* — not as evidence
-that script conditioning fails. **The confidence interval carries the
-content, not the p-value.**
+**Phase 10** — five figures and two LaTeX tables. The
+`fig_attention_maps.pdf` gap flagged in the original runbook is closed:
+SCA is channel attention with no spatial term, so it is rendered as gate
+profiles plus a script counterfactual rather than invented heat maps
+(D-009). Holding the image fixed and varying only the script id moves
+the gates **3.3%** as much as varying the image does — a mechanistic
+account of the null. See `docs/phase_records/phase10_figures.md`.
 
----
-
-## 4. Phase 10 — Figures and tables
-
-```bash
-python src/figures.py
-```
-
-| Guide §11 item | Status |
-|---|---|
-| 1. `tab_main.tex` | implemented, needs final runs |
-| 2. `fig_primary_delta.pdf` | implemented, needs `stats_summary.json` |
-| 3. `fig_per_script.pdf` | implemented, needs final runs |
-| 4. `fig_depth_sweep.pdf` | ✅ **generated** |
-| 5. `fig_attention_maps.pdf` | ❌ **NOT IMPLEMENTED** |
-| 6. Appendix training curves | implemented, needs final runs |
-
-### The one real gap: `fig_attention_maps.pdf`
-
-Guide §11 item 5 asks for a qualitative panel — channel-gate profiles or
-Grad-CAM overlays comparing A2 against A1 on a few test images per
-script. It is **not written yet**, because it needs the saved suffix
-weights that Phase 8 is producing now.
-
-Recommended approach (simpler and more honest than Grad-CAM here):
-plot the **SCA channel-gate activation profiles** per script. A2's gates
-are conditioned on script, so if the mechanism does anything the three
-script curves should separate; A1's gates see a learned constant, so its
-curves must be identical by construction. That contrast is the figure's
-actual scientific content, and it doubles as a mechanism check.
-
-Caption must state it is qualitative support, and cite the source paper
-for consent to publish the images.
+Three defects were found and fixed along the way: the A2′ arm-tag
+collapse (caught before any final data existed), a `tab_main` caption
+that reported one arm's seed count for every row, and a leaked tuning
+lock (D-011). Two A0 backbones did not train at all (D-010).
 
 ---
 
@@ -170,13 +82,15 @@ Guide §12 asks for these verbatim, no summaries:
 
 | # | Artifact | Status |
 |---|---|---|
-| 1 | `results/all_runs.csv` | 🔄 filling |
-| 2 | `results/stats_summary.json` + `.md` | ⏳ Phase 9 |
+| 1 | `results/all_runs.csv` | ✅ complete — 472 rows |
+| 2 | `results/stats_summary.json` + `.md` | ✅ ready |
 | 3 | `data/annotations/agreement_report.md` + digit-glyph counts | ✅ ready |
 | 4 | `data/splits/split_v1.json` counts block | ✅ ready |
-| 5 | `figures/tab_main.tex` + all `fig_*.pdf` | ⏳ Phase 10 |
-| 6 | `DEVIATIONS.md` | ✅ ready (D-001…D-008) |
+| 5 | `figures/tab_main.tex` + all `fig_*.pdf` | ✅ ready — 5 figures, 2 tables |
+| 6 | `DEVIATIONS.md` | ✅ ready (D-001…D-011), authors still to review |
 | 7 | Freeze tag + commit hash | ✅ `freeze-v1` / `e491aaf` |
+| 8 | `results/attention_gates.json` + `.npz` | ✅ ready (mechanism probe) |
+| 9 | `results/a0_backbones.md` + `.json` | ✅ ready (backbone reproduction) |
 
 ---
 
@@ -197,12 +111,13 @@ Guide §12 asks for these verbatim, no summaries:
 
 ## 7. Blocked on author input
 
-| Item | Why it is blocked |
+| Item | Status |
 |---|---|
-| **`LICENSE` file** | MIT chosen, but the copyright holder line needs exact author names. Not inferred. `README.md` line 170. |
-| **Author list / affiliations** | paper `\todonote{Author order to confirm}` |
-| **Corresponding-author confirmation** | guide §2 step 4 recommends written confirmation that this use is within intended terms |
-| **Both authors to review `DEVIATIONS.md`** | guide §14 final checklist |
+| **Author list** | **RESOLVED 2026-09-03.** First author Ayesha Ashfaq; corresponding author Abdullah Butt. Set in the paper's `\author{}` block. |
+| **Affiliations** | still open — `\todonote{affiliation}` in the paper. Not inferred. |
+| **`LICENSE` file** | **DEFERRED** at the authors' instruction (2026-09-03). MIT was chosen but no `LICENSE` file exists yet and the copyright holder line is unwritten. Must be settled before Phase 12 release. `README.md` line 170. |
+| **Corresponding-author confirmation** | still open — guide §2 step 4 recommends written confirmation from the dataset authors that this use is within intended terms. |
+| **Authors to review `DEVIATIONS.md`** | still open — deferred to a later review (2026-09-03). Guide §14 final checklist. D-001 (Claude Code as annotator A), D-004 (618-image deduplication) and D-010 (two backbones that did not train) are the entries a reviewer is most likely to question. |
 
 ---
 
