@@ -59,3 +59,107 @@ C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\
     script classifier acc (test): 0.8548
 C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
   warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=313 ep=12 test_acc=0.7419 (179s)
+    script classifier acc (test): 0.8226
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=314 ep= 7 test_acc=0.7258 (93s)
+    script classifier acc (test): 0.9032
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=315 ep= 8 test_acc=0.6290 (92s)
+    script classifier acc (test): 0.8548
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=316 ep=10 test_acc=0.7742 (131s)
+    script classifier acc (test): 0.8065
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=317 ep= 9 test_acc=0.7581 (100s)
+    script classifier acc (test): 0.8710
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=318 ep= 7 test_acc=0.7258 (80s)
+    script classifier acc (test): 0.8871
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=319 ep= 7 test_acc=0.6774 (89s)
+    script classifier acc (test): 0.8226
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=320 ep= 7 test_acc=0.6935 (79s)
+    script classifier acc (test): 0.8387
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=321 ep= 8 test_acc=0.7742 (90s)
+    script classifier acc (test): 0.8548
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=322 ep=11 test_acc=0.7419 (121s)
+    script classifier acc (test): 0.8710
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=323 ep= 6 test_acc=0.6935 (68s)
+    script classifier acc (test): 0.8548
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=324 ep=10 test_acc=0.7742 (110s)
+    script classifier acc (test): 0.8710
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=325 ep=10 test_acc=0.7742 (112s)
+    script classifier acc (test): 0.8710
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=326 ep=11 test_acc=0.7903 (121s)
+    script classifier acc (test): 0.8871
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=327 ep= 8 test_acc=0.7258 (89s)
+    script classifier acc (test): 0.8710
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=328 ep= 9 test_acc=0.7742 (100s)
+    script classifier acc (test): 0.8548
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=329 ep= 8 test_acc=0.7419 (89s)
+    script classifier acc (test): 0.8710
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=330 ep=11 test_acc=0.7097 (131s)
+    script classifier acc (test): 0.8226
+
+[A4]
+  A4             seed=301 test_acc=0.7097 (47s)
+  A4             seed=302 test_acc=0.7097 (22s)
+  A4             seed=303 test_acc=0.6935 (31s)
+  A4             seed=304 test_acc=0.6935 (26s)
+  A4             seed=305 test_acc=0.7581 (31s)
+  A4             seed=306 test_acc=0.6452 (26s)
+  A4             seed=307 test_acc=0.7258 (24s)
+  A4             seed=308 test_acc=0.7258 (30s)
+  A4             seed=309 test_acc=0.7419 (20s)
+  A4             seed=310 test_acc=0.7097 (27s)
+  A4             seed=311 test_acc=0.6613 (26s)
+  A4             seed=312 test_acc=0.6935 (35s)
+  A4             seed=313 test_acc=0.6935 (20s)
+  A4             seed=314 test_acc=0.6452 (22s)
+  A4             seed=315 test_acc=0.7258 (25s)
+  A4             seed=316 test_acc=0.6774 (23s)
+  A4             seed=317 test_acc=0.7903 (31s)
+  A4             seed=318 test_acc=0.7903 (29s)
+  A4             seed=319 test_acc=0.7258 (23s)
+  A4             seed=320 test_acc=0.6774 (22s)
+  A4             seed=321 test_acc=0.7581 (24s)
+  A4             seed=322 test_acc=0.7742 (28s)
+  A4             seed=323 test_acc=0.7742 (32s)
+  A4             seed=324 test_acc=0.8065 (24s)
+  A4             seed=325 test_acc=0.6774 (20s)
+  A4             seed=326 test_acc=0.7258 (24s)
+  A4             seed=327 test_acc=0.6935 (24s)
+  A4             seed=328 test_acc=0.7581 (30s)
+  A4             seed=329 test_acc=0.6935 (25s)
+  A4             seed=330 test_acc=0.7419 (32s)
+
+log: results/all_runs.csv

@@ -1,1 +1,13 @@
 queue: waiting for /d/Github Reporsitories/Script-Aware-Bilingual-Dyslexia-Classification/runs/.runner.lock to clear ...
+queue: lock clear at 2026-09-03T01:45:11Z, starting A0_others
+2026-09-03 06:45:11.698667: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-09-03 06:45:16.626047: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+NOTE: grid.yaml is marked frozen; running as specified.
+planned runs : 45
+already done : 1
+to run       : 44
+estimated    : 0.5 h (measured per-run times, excludes thermal throttling)
+
+[group] arm=A0 backbone=cnn_scratch depth=None  (prefix cache rebuilt)
+2026-09-03 06:45:20.724021: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
