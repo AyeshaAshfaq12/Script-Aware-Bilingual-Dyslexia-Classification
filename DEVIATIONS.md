@@ -296,3 +296,81 @@ spatial component. The probe carries a null check: A1's gates cannot
 depend on the script by construction, and its measured script-induced
 variation is 4.87e-09 — float32 round-off, 58,000x below A2's — which
 confirms the probe reads the right tensor.
+
+---
+
+## D-010 — Two A0 backbones collapsed to constant majority-class predictors
+
+- **Date:** 2026-09-03
+- **Phase:** 5 / 10 (A0_others reproduction sweep), guide §5.1
+- **Status:** ACCEPTED, reported as a negative result
+
+**What happened.** In the 45-run `A0_others` sweep, `cnn_scratch` and
+`mobilenetv3small` produced **balanced accuracy of exactly 0.5000 with
+recall 1.000 and zero variance** across all three seeds and all three
+learning rates. Both emit the positive (dyslexic) class for every
+image. Their accuracy of 0.6613 is precisely the validation base rate
+(41/62) and is not a measure of performance.
+
+AUC separates the two failures: `cnn_scratch` scores **0.5029**, which
+is chance — it learned nothing. `mobilenetv3small` scores **0.5482**,
+so its frozen features carry a little ranking signal, but the head
+never moves any image across the 0.5 decision boundary.
+
+**Reason.** For `cnn_scratch` this is the expected consequence of D-007:
+it is the only arm trained end to end from random initialisation, and
+618 images with no augmentation (hard rule 4) is not enough to train a
+convolutional network from scratch. The collapse is a property of the
+data budget, not a defect in the code. `mobilenetv3small`'s frozen
+features are evidently too weak at this resolution for a linear head to
+separate the classes.
+
+**Impact on the claim.** None on the co-primary endpoints, which use
+MobileNetV1 throughout and were complete and frozen before this sweep
+ran. The effect is confined to the reproduction table.
+
+**Why it is not silently dropped.** Reporting 0.6613 for these two rows
+beside genuine numbers for VGG16, InceptionV3 and MobileNetV2 would
+imply they are weak-but-working models. They are not models at all in
+any useful sense. Hard rule 6 requires negative results at the same
+prominence, so both rows stay in the table, flagged, with the base rate
+stated alongside.
+
+**Note on Kashif et al. Table 3.** Their reported `cnn_scratch` accuracy
+is 0.7743. We do not reproduce it and do not claim their result is
+wrong: the split, preprocessing and training protocol all differ, and
+our deduplicated 618-image corpus (D-004) is smaller than the 852 files
+they used. The 11.3-point gap is recorded as an unreproduced value, not
+as a refutation.
+
+**Resolution.** `src/a0_table.py` computes the table, flags any arm with
+balanced accuracy 0.5 and recall 1.0 automatically, and writes
+`results/a0_backbones.md` and `figures/tab_a0_backbones.tex` with the
+degenerate rows daggered and explained in the caption.
+
+---
+
+## D-011 — Tuning runner leaked its lock file on clean exit
+
+- **Date:** 2026-09-03
+- **Phase:** 10 (found after the A0_others sweep)
+- **Status:** RESOLVED
+
+**Defect.** `src/run_tuning.py` acquired the D-008 concurrency lock with
+`lock = RunnerLock().__enter__()`, calling the context manager's
+`__enter__` by hand. `__exit__` was therefore never invoked and
+`runs/.runner.lock` survived even a clean exit, so the next runner would
+refuse to start against a lock whose owning process was long gone.
+
+**How it surfaced.** The `A0_others` sweep finished normally (exit code
+0, all 45 runs logged) yet left the lock behind holding a dead PID.
+
+**Impact on results.** None. The lock only gates process startup; no run
+was skipped, duplicated or altered, and the 45 logged rows are complete
+and correct. The equivalent code in `run_final.py` already used a
+`with` block and was never affected.
+
+**Resolution.** `run_tuning.py` now wraps the run loop in
+`with RunnerLock():`, matching `run_final.py`, so the lock is released
+on normal exit, on `--limit`, and on exception. The stale file was
+removed and release was verified.

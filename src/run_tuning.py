@@ -173,19 +173,23 @@ def main() -> int:
     todo.sort(key=lambda t: (group_key(t[0]), t[0].optimizer, t[0].lr, t[1]))
     cache, current, t_start = FeatureCache(), None, time.time()
     done = 0
-    lock = RunnerLock().__enter__()
-    for spec, seed in todo:
-        k = group_key(spec)
-        if k != current:
-            cache.clear()
-            current = k
-            print(f"\n[group] arm={spec.arm} backbone={spec.backbone} "
-                  f"depth={spec.depth_config}  (prefix cache rebuilt)")
-        run(spec, seed, phase="tuning", eval_partition="val", cache=cache)
-        done += 1
-        if a.limit and done >= a.limit:
-            print(f"\nstopping after {done} runs (--limit)")
-            break
+    # `with`, not a bare __enter__(): calling __enter__ by hand never runs
+    # __exit__, so the lock file outlived even a clean exit and blocked the
+    # next runner. Same fix as run_final.py.
+    with RunnerLock():
+        for spec, seed in todo:
+            k = group_key(spec)
+            if k != current:
+                cache.clear()
+                current = k
+                print(f"\n[group] arm={spec.arm} backbone={spec.backbone} "
+                      f"depth={spec.depth_config}  (prefix cache rebuilt)")
+            run(spec, seed, phase="tuning", eval_partition="val",
+                cache=cache)
+            done += 1
+            if a.limit and done >= a.limit:
+                print(f"\nstopping after {done} runs (--limit)")
+                break
     print(f"\ncompleted {done} runs in {(time.time()-t_start)/60:.1f} min")
     print(f"log: results/all_runs.csv")
     return 0
