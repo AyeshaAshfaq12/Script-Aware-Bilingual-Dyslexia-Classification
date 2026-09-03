@@ -1,0 +1,61 @@
+2026-09-03 05:24:19.661826: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-09-03 05:24:38.804132: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+final seeds : 301..330  (S=30)
+partition   : test
+freeze tag  : present
+
+[A2p]
+2026-09-03 05:24:59.413891: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=301 ep= 8 test_acc=0.7258 (111s)
+    script classifier acc (test): 0.8226
+WARNING:tensorflow:5 out of the last 40 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000017884296B60> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=302 ep=11 test_acc=0.7581 (173s)
+    script classifier acc (test): 0.8226
+WARNING:tensorflow:5 out of the last 40 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000017882CE4D60> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=303 ep=12 test_acc=0.7903 (160s)
+    script classifier acc (test): 0.8548
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=304 ep= 8 test_acc=0.6935 (95s)
+    script classifier acc (test): 0.8548
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=305 ep=11 test_acc=0.8065 (149s)
+    script classifier acc (test): 0.8710
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=306 ep=14 test_acc=0.7581 (184s)
+    script classifier acc (test): 0.8548
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=307 ep= 7 test_acc=0.7097 (92s)
+    script classifier acc (test): 0.9032
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=308 ep=10 test_acc=0.6774 (111s)
+    script classifier acc (test): 0.8548
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=309 ep= 6 test_acc=0.7097 (74s)
+    script classifier acc (test): 0.8548
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=310 ep= 6 test_acc=0.6935 (86s)
+    script classifier acc (test): 0.8387
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=311 ep=17 test_acc=0.7742 (311s)
+    script classifier acc (test): 0.8548
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(
+  A2_mid_predicted rmsprop lr=1e-04    seed=312 ep=11 test_acc=0.7581 (146s)
+    script classifier acc (test): 0.8548
+C:\Users\HP\AppData\Roaming\Python\Python313\site-packages\keras\src\optimizers\base_optimizer.py:862: UserWarning: Gradients do not exist for variables ['sca_conv_pw_7_relu/const_embed'] when minimizing the loss. If using `model.compile()`, did you forget to provide a `loss` argument?
+  warnings.warn(

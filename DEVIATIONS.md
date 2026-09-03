@@ -252,3 +252,47 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
      runner exits immediately with an explanatory message instead of
      silently duplicating work. The lock is released through a `with`
      block, so it survives exceptions and early exits.
+
+---
+
+## D-009 — "Attention maps" rendered as channel-gate profiles, not spatial heat maps
+
+- **Date:** 2026-09-03
+- **Phase:** 10 (figures), guide §11 deliverable 5
+- **Status:** ACCEPTED
+
+**Deviation.** The guide lists `fig_attention_maps.pdf` among the
+required figures. The delivered figure shows SCA **channel-gate
+profiles** and a script-counterfactual, not spatial attention heat maps
+over the handwriting images.
+
+**Reason.** The SCA block is squeeze-and-excitation style *channel*
+attention. Its gate is a vector `a` in (0,1)^C applied as `f + f*a`,
+broadcast identically across every spatial position
+(`src/models.py::SCA.call`). There is no spatial term anywhere in the
+mechanism, so there is no spatial attention to visualise. Producing a
+heat map would have required substituting a different method (Grad-CAM
+or similar) and presenting it as if it showed the SCA gates — which
+would misrepresent what the model does. Overlaying gates on dataset
+images would also have conflicted with hard rule 7.
+
+**Impact on the claim.** None negative; the substitute is strictly more
+informative for the question the paper asks. The counterfactual probe
+(`src/attention_probe.py`) holds each image fixed and varies only the
+script id, which isolates the causal contribution of the conditioning
+signal — the exact quantity the A2-vs-A1 contrast tests.
+
+**Result it produced.** Script-induced gate SD = 0.000282 against
+image-induced gate SD = 0.008609, a ratio of **0.0327**: changing the
+script moves the attention gates about 3% as much as changing the image
+does. This is a direct mechanistic account of the null co-primary
+result — the conditioning input barely perturbs the attention it is
+supposed to steer.
+
+**Resolution.** The filename `fig_attention_maps.pdf` is kept so the
+deliverable list maps 1:1, but the figure title, caption and this entry
+all state plainly that these are channel gates and that SCA has no
+spatial component. The probe carries a null check: A1's gates cannot
+depend on the script by construction, and its measured script-induced
+variation is 4.87e-09 — float32 round-off, 58,000x below A2's — which
+confirms the probe reads the right tensor.

@@ -7,4 +7,6 @@ python src/agreement.py --stage final
 
 ------------------------------------------
 
-Ek document create krwana chat ka, from prompts to responses, and reasoning of responses
+1- Ek document create krwana chat ka, from prompts to responses, and reasoning of responses
+2- REPO public krni
+
