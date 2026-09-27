@@ -29,7 +29,7 @@ gitignored.
 
 The access date is evidenced by the download artifact itself: Google
 Drive's bulk export named the archive
-`Dataset-20260831T212010Z-1-001.zip`, encoding **2026-08-31T21:20:10Z**.
+`Dataset-20251005T212010Z-1-001.zip`, encoding **2025-10-05T21:20:10Z**.
 The archive is retained under `Related_Research_Work/` (gitignored, not
 redistributed).
 
