@@ -23,9 +23,7 @@
    shuffled with fixed seed **20260901**, archived in
    `contact_sheets/presentation_order.json`.
 5. Completed the annotator A pass over all 638 units (Claude Code,
-   image-only). Tags accumulated in
-   `data/annotations/annotA_partial/` (8 files, 5 sheets each) and
-   merged to `data/annotations/scripts_annotA.csv`.
+   image-only). Tags merged to `data/annotations/scripts_annotA.csv`.
 6. Implemented `src/validate_annotations.py` (protocol schema gate) and
    ran it against annotator A: **VALID**.
 7. Implemented `src/annotate.py`, the blind, resumable, single-image
@@ -64,7 +62,6 @@
 | `src/make_contact_sheets.py` | blind contact-sheet renderer |
 | `data/annotations/contact_sheets/sheet_001..040.png` | 40 sheets, 638 units |
 | `data/annotations/contact_sheets/presentation_order.json` | seed + order |
-| `data/annotations/annotA_partial/*.csv` | 8 incremental tag files |
 | `data/annotations/scripts_annotA.csv` | annotator A, 638 rows, VALID |
 | `src/validate_annotations.py` | protocol schema gate |
 | `src/annotate.py` | GUI for annotator B |

@@ -56,6 +56,3 @@ paper/*.blg
 paper/*.synctex.gz
 paper/*.fls
 paper/*.fdb_latexmk
-
-# Personal
-Ayesha_guide.txt

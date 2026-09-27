@@ -31,8 +31,7 @@
 - As-released class-folder casing `Yes`/`No` preserved (D-002); label
   mapping `Yes -> y=1 (dyslexic)`, `No -> y=0 (non-dyslexic)`.
 - Layout created at workspace root, not in a `script-aware-dyslexia/`
-  subfolder; `Documents_and_Guides/` and `Related_Research_Work/`
-  retained.
+  subfolder.
 - A stable record key `uid = "<class_folder>/<filename>"` is adopted in
   place of bare filenames, because 20 filenames are reused across the
   two class folders and the guide's `split_v1.json` filename lists

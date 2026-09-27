@@ -4,9 +4,6 @@ A controlled ablation testing whether **script-conditioned attention**
 improves binary dyslexia classification on Urdu–English children's
 handwriting, against a **matched-capacity script-agnostic control**.
 
-Companion code for `paper/ScriptAwareDyslexia_TBD_v1_2026-09.tex`.
-Protocol: `Documents_and_Guides/ScriptAwareDyslexia_ExperimentGuide_v1_2026-09.md`.
-
 > **Status:** in progress. Phase 1 complete, Phase 2 (script
 > annotation) underway. No test-set evaluation has occurred; the
 > `freeze-v1` tag does not yet exist.
@@ -85,7 +82,6 @@ src/          data, models, train, evaluate, stats, figures
 runs/         one folder per run (GITIGNORED, archived separately)
 results/      all_runs.csv, stats summaries, audit artifacts
 figures/      generated vector PDFs
-paper/        .tex and .bib
 docs/phase_records/  one record per completed phase
 DEVIATIONS.md every departure from the guide, with impact
 ```

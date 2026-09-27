@@ -94,7 +94,6 @@ Absolute values are within-dataset and are not generalisation estimates.
 - `results/all_runs.csv` — 210 final rows
 - `runs/<arm>_<config_hash>_<seed>/` — config, history, per-image
   predictions, weights, for every run
-- `results/final_a2p_a4.log`
 
 ## Status
 

@@ -1,7 +1,7 @@
 # DEVIATIONS
 
-Every departure from `ScriptAwareDyslexia_ExperimentGuide_v1_2026-09.md`
-is recorded here, per hard rule 4. Format: date, guide clause, reason,
+Every departure from the pre-registered experiment protocol (the
+"guide"; version 1, 2026-09) is recorded here, per hard rule 4. Format: date, guide clause, reason,
 impact on the claim, resolution. Deviations are reviewed by both
 authors before the results handoff (guide §14).
 
