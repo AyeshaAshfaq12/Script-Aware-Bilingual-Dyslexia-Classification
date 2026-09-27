@@ -2,8 +2,9 @@
 
 - **Date:** 2025-11-01
 - **Phase:** Phase 1 (Guide §2), preceded by Phase 0 repo scaffold (§1)
-- **Status:** **BLOCKED** — guide-mandated gate passed; supplementary
-  integrity audit failed. See DEVIATIONS.md D-004.
+- **Status:** **PASS** — guide-mandated gate passed; the supplementary
+  integrity audit finding was resolved by author decision (DEVIATIONS.md
+  D-004, ACCEPTED / RESOLVED).
 
 ## Actions performed
 
@@ -41,7 +42,7 @@
 
 - Python 3.13.7, Windows 10 Pro 19045, CPU only.
 - numpy 2.2.6, pandas 2.3.2, pillow 11.3.0, scikit-learn 1.7.2,
-  scipy 1.16.2, PyYAML 6.0.2. TensorFlow install in progress.
+  scipy 1.16.2, PyYAML 6.0.2. TensorFlow installed afterwards (pinned in `requirements.txt`).
 - No seeds consumed in this phase; nothing stochastic was run.
 
 ## Files created / updated
@@ -108,11 +109,10 @@ Corpus properties: 852 files, 638 distinct by sha256; all JPEG/RGB;
 - D-001 annotator A is Claude Code (ACCEPTED)
 - D-002 class-folder casing (RESOLVED)
 - D-003 CPU-only local environment (RESOLVED, informational)
-- D-004 duplicate/contradictory images (**OPEN, BLOCKING**)
+- D-004 duplicate/contradictory images (ACCEPTED / RESOLVED)
 
 ## Status
 
-**BLOCKED** — awaiting author decision on D-004 and the dataset
-provenance facts. Phase 2 annotation tooling can proceed in parallel;
-Phase 3 (split) cannot start until D-004 is resolved, because the
-duplicate handling determines what the split is built over.
+**PASS** — D-004 resolved by author decision and dataset provenance
+recorded (README, Dataset section). Phase 3 (split) was built over the
+resolved corpus.

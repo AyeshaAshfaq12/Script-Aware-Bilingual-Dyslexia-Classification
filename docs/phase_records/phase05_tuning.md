@@ -2,9 +2,9 @@
 
 - **Date:** 2025-11-12
 - **Phase:** Phase 5 (Guide §6)
-- **Status:** **INFRASTRUCTURE COMPLETE — sweep pending.** The grid is
-  amended and approved, the runner is verified on real runs, and the
-  sweep is ready for the authors to launch.
+- **Status:** **COMPLETE.** The grid is amended and approved, the
+  runner is verified on real runs, and the tuning sweep has been run
+  (tuning rows in `results/all_runs.csv`).
 
 ## Execution platform decision
 
@@ -161,5 +161,5 @@ its rationale and the measurements behind it.
 
 ## Status
 
-**READY TO RUN.** Nothing has touched the test partition;
-`freeze-v1` does not exist.
+**COMPLETE.** The sweep ran on the validation partition only; nothing
+touched the test partition before the `freeze-v1` tag (Phase 7).

@@ -4,9 +4,9 @@ A controlled ablation testing whether **script-conditioned attention**
 improves binary dyslexia classification on Urdu–English children's
 handwriting, against a **matched-capacity script-agnostic control**.
 
-> **Status:** in progress. Phase 1 complete, Phase 2 (script
-> annotation) underway. No test-set evaluation has occurred; the
-> `freeze-v1` tag does not yet exist.
+> **Status:** published. All phases (1–10) complete; configs frozen
+> at the `freeze-v1` tag before any test-set evaluation; final runs,
+> statistics, figures and tables are in `results/`.
 
 ## Dataset
 
