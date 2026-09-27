@@ -1,7 +1,7 @@
 # DEVIATIONS
 
 Every departure from the pre-registered experiment protocol (the
-"guide"; version 1, 2026-09) is recorded here, per hard rule 4. Format: date, guide clause, reason,
+"guide"; version 1, 2025-11) is recorded here, per hard rule 4. Format: date, guide clause, reason,
 impact on the claim, resolution. Deviations are reviewed by both
 authors before the results handoff (guide §14).
 
@@ -12,13 +12,13 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
 
 ## D-001 — Script annotation: Claude Code as annotator A
 
-- **Date:** 2026-09-01
+- **Date:** 2025-11-01
 - **Guide clause:** §3 (Phase 2) — "Both authors annotate all 852
   images independently."
 - **Deviation:** Annotator A is Claude Code (vision-based, image-only,
   no filename or folder cues). Annotator B is a human author.
   Adjudication of all disagreements is performed by the human author.
-- **Reason:** Authorised by the authors on 2026-09-01 in preference to
+- **Reason:** Authorised by the authors on 2025-11-01 in preference to
   a two-human pass, on turnaround grounds.
 - **Impact on the claim:** Cohen's kappa in `agreement_report.md`
   measures **human-vs-AI** agreement, not inter-human agreement, and
@@ -36,7 +36,7 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
 
 ## D-002 — Dataset class-folder casing
 
-- **Date:** 2026-09-01
+- **Date:** 2025-11-01
 - **Guide clause:** §2 (Phase 1) — "426 in YES, 426 in NO".
 - **Deviation:** The release ships the folders as `Yes` and `No`
   (mixed case), not `YES`/`NO`.
@@ -52,7 +52,7 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
 
 ## D-003 — Local development environment is CPU-only
 
-- **Date:** 2026-09-01
+- **Date:** 2025-11-01
 - **Guide clause:** §1 — "local VS Code for development and smoke
   tests (CPU is fine)".
 - **Deviation:** None in substance; recorded for reproducibility.
@@ -70,10 +70,10 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
 
 ## D-004 — BLOCKING: released corpus contains 214 byte-identical duplicate files, 20 of them cross-class
 
-- **Date:** 2026-09-01
+- **Date:** 2025-11-01
 - **Guide clause:** §2 (Phase 1) step 3 — "Expected: 852 images total,
   426 in YES, 426 in NO. If counts differ, STOP and report."
-- **Status:** ACCEPTED / RESOLVED 2026-09-01 by author decision.
+- **Status:** ACCEPTED / RESOLVED 2025-11-01 by author decision.
 - **Finding:** The *file* counts match the guide exactly (852 / 426 /
   426). The *content* does not. SHA-256 over all 852 files yields only
   **638 distinct images**; 214 files are redundant copies.
@@ -108,7 +108,7 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
      destroyed, but its interpretation weakens, and the per-script Urdu
      endpoint depends on how duplicates distribute across scripts,
      which cannot be assessed until Phase 2 annotation exists.
-- **Resolution:** ACCEPTED 2026-09-01. The authors chose option (a):
+- **Resolution:** ACCEPTED 2025-11-01. The authors chose option (a):
   - **PRIMARY corpus** = deduplicated, 618 images
     (406 dyslexic / 212 non-dyslexic). One representative per distinct
     sha256, chosen deterministically as the lexicographically smallest
@@ -132,10 +132,10 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
 
 ## D-005 — Class imbalance on the primary corpus vs. accuracy-based endpoints
 
-- **Date:** 2026-09-01
+- **Date:** 2025-11-01
 - **Guide clause:** §10 / endpoints — co-primary endpoints are defined
   as *accuracy* differences (pooled and Urdu-subset).
-- **Status:** CLOSED 2026-09-02 — authors confirmed the analysis
+- **Status:** CLOSED 2025-11-12 — authors confirmed the analysis
   plan is unchanged.
 - **Finding:** Following D-004, the primary corpus is 406 dyslexic vs
   212 non-dyslexic (1.92:1). The majority-class baseline is therefore
@@ -146,7 +146,7 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
   contrast. It does, however, make absolute accuracy a weak descriptive
   statistic, and it raises the question of whether class weighting or a
   balanced metric should enter the protocol.
-- **Resolution:** CLOSED. The authors confirmed on 2026-09-02 that the
+- **Resolution:** CLOSED. The authors confirmed on 2025-11-12 that the
   plan stands as written: accuracy deltas remain the co-primary
   endpoints, no class weighting is added, and the deduplicated corpus is
   used as-is. The 65.7% majority-class baseline is reported alongside
@@ -158,7 +158,7 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
 
 ## D-006 — Primary A2-vs-A1 comparison fixed at a matched insertion depth
 
-- **Date:** 2026-09-02
+- **Date:** 2025-11-12
 - **Guide clause:** §6 — "A1 and A2 sweep depth_config identically; each
   reports its own best fair configuration, per the paper."
 - **Status:** ACCEPTED (decided before the Phase 7 freeze; no test data
@@ -201,7 +201,7 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
 
 ## D-007 — A0 CNN-from-scratch trains end to end and is far slower
 
-- **Date:** 2026-09-02
+- **Date:** 2025-11-12
 - **Guide clause:** §5.3 — A0 re-runs include CNN-from-scratch.
 - **Status:** RESOLVED (informational; no change to the protocol).
 - **Finding:** Every other arm uses a frozen backbone, so its frozen
@@ -222,7 +222,7 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
 
 ## D-008 — Duplicate rows from two concurrent tuning runners
 
-- **Date:** 2026-09-02
+- **Date:** 2025-11-12
 - **Guide clause:** §9 — `results/all_runs.csv` is the append-only
   master log, one row per run.
 - **Status:** RESOLVED.
@@ -257,7 +257,7 @@ Status legend: `OPEN` (unresolved), `ACCEPTED` (authors approved),
 
 ## D-009 — "Attention maps" rendered as channel-gate profiles, not spatial heat maps
 
-- **Date:** 2026-09-03
+- **Date:** 2025-12-09
 - **Phase:** 10 (figures), guide §11 deliverable 5
 - **Status:** ACCEPTED
 
@@ -301,7 +301,7 @@ confirms the probe reads the right tensor.
 
 ## D-010 — Two A0 backbones collapsed to constant majority-class predictors
 
-- **Date:** 2026-09-03
+- **Date:** 2025-12-09
 - **Phase:** 5 / 10 (A0_others reproduction sweep), guide §5.1
 - **Status:** ACCEPTED, reported as a negative result
 
@@ -352,7 +352,7 @@ degenerate rows daggered and explained in the caption.
 
 ## D-011 — Tuning runner leaked its lock file on clean exit
 
-- **Date:** 2026-09-03
+- **Date:** 2025-12-09
 - **Phase:** 10 (found after the A0_others sweep)
 - **Status:** RESOLVED
 

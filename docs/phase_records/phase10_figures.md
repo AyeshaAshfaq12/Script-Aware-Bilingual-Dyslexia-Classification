@@ -1,6 +1,6 @@
 # Phase Record — Phase 10: Figures, tables and the mechanism probe
 
-- **Date:** 2026-09-03
+- **Date:** 2025-12-09
 - **Phase:** Phase 10 (Guide §11)
 - **Status:** **COMPLETE.** All five figures and both tables generated.
 

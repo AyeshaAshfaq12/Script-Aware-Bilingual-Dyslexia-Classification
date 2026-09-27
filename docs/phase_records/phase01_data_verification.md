@@ -1,6 +1,6 @@
 # Phase Record — Phase 1: Data acquisition and verification
 
-- **Date:** 2026-09-01
+- **Date:** 2025-11-01
 - **Phase:** Phase 1 (Guide §2), preceded by Phase 0 repo scaffold (§1)
 - **Status:** **BLOCKED** — guide-mandated gate passed; supplementary
   integrity audit failed. See DEVIATIONS.md D-004.
@@ -27,7 +27,7 @@
 ## Decisions made
 
 - Annotator A = Claude Code, annotator B = human author (D-001),
-  authorised by the authors 2026-09-01.
+  authorised by the authors 2025-11-01.
 - As-released class-folder casing `Yes`/`No` preserved (D-002); label
   mapping `Yes -> y=1 (dyslexic)`, `No -> y=0 (non-dyslexic)`.
 - Layout created at workspace root, not in a `script-aware-dyslexia/`

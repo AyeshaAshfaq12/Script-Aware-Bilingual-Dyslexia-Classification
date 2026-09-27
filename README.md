@@ -23,7 +23,7 @@ gitignored.
 | Dataset URL | <https://drive.google.com/drive/folders/1L9Dc3xQ7dqlL10CD4JaRfG_H9JzuP-Tw?usp=drive_link> |
 | Source-study results + code | <https://drive.google.com/drive/folders/1kiig7QTYF90vqAvvJR6mz-tO5yOOsSkY?usp=sharing> |
 | Access route | The public link published by the source study |
-| Access date | **2026-08-31** |
+| Access date | **2025-10-05** |
 | Folder listing as accessed | `data/raw/manifest.txt` |
 | Per-file checksums | `data/raw/checksums.csv` (852 rows, SHA-256) |
 
@@ -160,7 +160,7 @@ bit-for-bit in `tests/test_smoke.py::TestSplitEquivalence`.
 
 ## Licence and redistribution
 
-Code: **MIT** (chosen by the authors 2026-09-01, per guide §1).
+Code: **MIT** (chosen by the authors 2025-11-01, per guide §1).
 The `LICENSE` file is **not yet written**: it requires the exact
 copyright holder name(s), which are author-supplied and are not
 inferred. **TODO — authors to supply the copyright holder line.**

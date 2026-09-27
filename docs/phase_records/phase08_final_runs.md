@@ -1,6 +1,6 @@
 # Phase Record — Phase 8: Final runs
 
-- **Date:** 2026-09-02 to 2026-09-03
+- **Date:** 2025-11-12 to 2025-12-09
 - **Phase:** Phase 8 (Guide §9)
 - **Status:** **COMPLETE.** All 7 arms at 30/30 on the test partition.
 

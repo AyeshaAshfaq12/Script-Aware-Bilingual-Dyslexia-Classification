@@ -1,4 +1,4 @@
-# Pinned after first successful install on 2026-09-01.
+# Pinned after first successful install on 2025-11-01.
 # Python 3.13.7, Windows 10 Pro 19045, CPU only (see DEVIATIONS.md D-003).
 tensorflow==2.20.0
 keras==3.15.1

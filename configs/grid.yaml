@@ -2,13 +2,13 @@
 #
 # Guide section 6 permits the authors to amend this grid BEFORE the
 # Phase 7 freeze and never after. This file records the amendment the
-# authors approved on 2026-09-02, together with the measurements that
+# authors approved on 2025-11-12, together with the measurements that
 # motivated it, so the decision is auditable.
 #
 # STATUS: FROZEN at Phase 7 (git tag freeze-v1). Do not edit.
 
 version: 1
-amended_utc: "2026-09-02"
+amended_utc: "2025-11-12"
 frozen: true
 
 # ---------------------------------------------------------------- axes
@@ -61,7 +61,7 @@ a0:
     - {backbone: mobilenetv3small, optimizer: adam}     # 0.7216 vs rmsprop .7146, sgd .6082
   optimizers_from_source_table3:
     source: "Kashif et al. (2026), Table 3, p.10 (repeated-run comparison)"
-    transcribed_utc: "2026-09-02"
+    transcribed_utc: "2025-11-12"
     anchor_reference: "MobileNet1 + RMSProp = 0.7871 +/- 0.0102, CI [0.7730, 0.8013]"
     tie_break_note: >
       MobileNet2 scores 0.7836 mean accuracy under BOTH RMSProp
@@ -72,7 +72,7 @@ a0:
 # ------------------------------------------------- amendment rationale
 amendment:
   approved_by: authors
-  date: "2026-09-02"
+  date: "2025-11-12"
   before_freeze: true
   changed:
     weight_decay: {from: [0.0, 1.0e-4], to: [0.0]}

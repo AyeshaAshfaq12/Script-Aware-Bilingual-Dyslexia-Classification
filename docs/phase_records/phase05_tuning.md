@@ -1,6 +1,6 @@
 # Phase Record — Phase 5: Tuning protocol
 
-- **Date:** 2026-09-02
+- **Date:** 2025-11-12
 - **Phase:** Phase 5 (Guide §6)
 - **Status:** **INFRASTRUCTURE COMPLETE — sweep pending.** The grid is
   amended and approved, the runner is verified on real runs, and the

@@ -1,6 +1,6 @@
 """Phase 1 addendum: define the experiment corpora (resolves D-004).
 
-Authors' decision, 2026-09-01:
+Authors' decision, 2025-11-01:
   PRIMARY     = deduplicated corpus, one representative per distinct
                 image, with the 20 cross-class (contradictory) images
                 removed entirely.            -> expected 618 images

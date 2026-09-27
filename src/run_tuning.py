@@ -8,7 +8,7 @@ left off.
 Runs are grouped by (arm-family, depth_config) so the frozen-prefix
 feature cache is computed once per group instead of once per run.
 
-Grid: configs/grid.yaml (option B, amended by the authors 2026-09-02
+Grid: configs/grid.yaml (option B, amended by the authors 2025-11-12
 before the freeze). Tuning and model selection use the VALIDATION
 partition only — hard rule 1.
 

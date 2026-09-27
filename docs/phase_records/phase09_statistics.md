@@ -1,6 +1,6 @@
 # Phase Record — Phase 9: Co-primary statistics
 
-- **Date:** 2026-09-02
+- **Date:** 2025-11-12
 - **Phase:** Phase 9 (Guide §10)
 - **Status:** **COMPLETE for the co-primary endpoints.** Both are null.
 

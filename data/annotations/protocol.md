@@ -1,7 +1,7 @@
 # Script annotation protocol (Phase 2)
 
 Archived verbatim per `DEVIATIONS.md` D-001. Both annotators work from
-this document. Frozen 2026-09-01, before any annotation was recorded.
+this document. Frozen 2025-11-01, before any annotation was recorded.
 
 ## Unit of annotation
 

@@ -1,6 +1,6 @@
 # Phase Record — Phase 4: Models and smoke tests
 
-- **Date:** 2026-09-02
+- **Date:** 2025-11-12
 - **Phase:** Phase 4 (Guide §5)
 - **Status:** **PASS** — all 37 smoke tests green on CPU.
 

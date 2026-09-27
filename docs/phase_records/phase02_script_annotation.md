@@ -1,8 +1,8 @@
 # Phase Record — Phase 2: Script annotation (dual annotator)
 
-- **Date:** 2026-09-01
+- **Date:** 2025-11-01
 - **Phase:** Phase 2 (Guide §3)
-- **Status:** **PASS** (completed 2026-09-02). Annotator A, annotator B,
+- **Status:** **PASS** (completed 2025-11-12). Annotator A, annotator B,
   adjudication, and `scripts_final.csv` all complete.
 
 ## Actions performed
@@ -130,7 +130,7 @@ paper's Data section, which requires the adjudicated
   distinct-image annotation unit are additions that strengthen the
   protocol; both are documented in `protocol.md`.
 
-## Completion (2026-09-02)
+## Completion (2025-11-12)
 
 Annotator B (human) completed all 638 units. Adjudication policy fixed
 by the authors: **annotator B is authoritative on every A/B

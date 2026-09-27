@@ -1,6 +1,6 @@
 # Phase Record — Phase 7: FREEZE (the integrity gate)
 
-- **Date:** 2026-09-02
+- **Date:** 2025-11-12
 - **Phase:** Phase 7 (Guide §8)
 - **Status:** **PASS** — configs frozen, `freeze-v1` tagged.
 

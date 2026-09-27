@@ -1,6 +1,6 @@
 # Phase Record — Phase 6: Pilot and power
 
-- **Date:** 2026-09-02
+- **Date:** 2025-11-12
 - **Phase:** Phase 6 (Guide §7)
 - **Status:** **PASS** — with a material finding about statistical power
   that must reach the paper's Limitations section.

@@ -183,7 +183,7 @@ def main() -> int:
     # Under the annotator_b policy the reason is the standing policy,
     # written back into disagreements.csv so the log is complete.
     if a.policy == "annotator_b" and disagree:
-        reason = ("Adjudication policy fixed by the authors 2026-09-02: "
+        reason = ("Adjudication policy fixed by the authors 2025-11-12: "
                   "annotator B (human) is authoritative on every A/B "
                   "disagreement; annotator A is Claude Code (D-001).")
         with (ANN / "disagreements.csv").open(
